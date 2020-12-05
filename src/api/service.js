@@ -2,7 +2,7 @@ import axios from 'axios'
 import Adapter from 'axios-mock-adapter'
 import { get } from 'lodash'
 import util from '@/libs/util'
-import { errorLog, errorCreate } from './tools'
+import { errorLog, errorCreate, response } from './tools'
 
 /**
  * @description 创建请求实例

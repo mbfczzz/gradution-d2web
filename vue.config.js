@@ -35,8 +35,18 @@ const pages = undefined
 module.exports = {
   // 根据你的实际情况更改这里
   publicPath,
-  lintOnSave: true,
+  lintOnSave: false,
   devServer: {
+    proxy: {
+      '/gradution': {
+        target: 'http://localhost/gradution',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/gradution': ''
+        }
+      }
+    },
     publicPath, // 和 publicPath 保持一致
     disableHostCheck: process.env.NODE_ENV === 'development' // 关闭 host check，方便使用 ngrok 之类的内网转发工具
   },
