@@ -1,51 +1,104 @@
 <template>
-<div id="bgc">
-  <div class="login-box">
-    <h1>GVHRPMS</h1>
-    <h2>Login</h2>
-    <form>
-      <div class="user-box">
-        <input type="text" v-model="formLogin.username" required="" />
-        <label>Username</label>
-      </div>
-      <div class="user-box">
-        <input type="password" v-model="formLogin.password" required="" />
-        <label>Password</label>
-      </div>
-      <a href="#" @click="onLogin()">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Submit
-      </a>
-    </form>
+   <div class="homepage-hero-module">
+<el-card class="box-card login">
+  <div slot="header" class="head">
+    <span>Login</span>
   </div>
-</div> 
+  <div style="margin-bottom:20px">
+    <el-input v-model="formLogin.username" placeholder="请输入用户名">
+      <template slot="prepend">
+          <d2-icon name="user"/>
+       </template>
+    </el-input>
+    <div style="margin-top:10px"></div>
+    <el-input v-model="formLogin.password" show-password placeholder="请输入密码">
+       <template slot="prepend">
+          <d2-icon name="key"/>
+       </template>
+      </el-input>
+  </div>
+  <el-button type="primary" @click="onLogin()">submit</el-button>
+</el-card>
+    <div class="video-container">
+      <div :style="fixStyle" class="filter"></div>
+     <video-player  class="video-player vjs-custom-skin"
+     ref="videoPlayer"
+     :playsinline="true"
+     :options="playerOptions"
+     ></video-player>
+    </div>
+ </div>
 </template>
 
 <script>
+import { videoPlayer } from 'vue-video-player'
+import 'video.js/dist/video-js.css'
 import { mapActions } from 'vuex'
 import localeMixin from '@/locales/mixin.js'
 export default {
   mixins: [
     localeMixin
   ],
-  data () {
-    return {
-      // 表单
-      formLogin: {
+    components:{
+        videoPlayer
+    },
+    data() {
+      return {
+        fixStyle: '',
+        playerOptions : {
+        autoplay: true, //如果true,浏览器准备好时开始回放。
+        muted: false, // 默认情况下将会消除任何音频。
+        loop: true, // 导致视频一结束就重新开始。
+        preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+        language: 'zh-CN',
+        aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+        fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+        sources: [{
+          src: 'http://192.168.37.3:1202/bgcvedio.mp4',  // 路径
+          type: 'video/mp4'  // 类型
+        },],
+        // poster: "http://192.168.37.3:1202/bgc.jpg", //你的封面地址
+        notSupportedMessage: '此视频暂无法播放，请稍后再试', //允许覆盖Video.js无法播放媒体源时显示的默认信息。
+    },
+     formLogin: {
         username: '',
         password: ''
       },
-    }
-  },
-
-  methods: {
+      }
+    },
+      mounted: function() {
+      window.onresize = () => {
+        const windowWidth = document.body.clientWidth
+        const windowHeight = document.body.clientHeight
+        const windowAspectRatio = windowHeight / windowWidth
+        let videoWidth
+        let videoHeight
+        if (windowAspectRatio < 0.5625) {
+          videoWidth = windowWidth
+          videoHeight = videoWidth * 0.5625
+          this.fixStyle = {
+            height: windowWidth * 0.5625 + 'px',
+            width: windowWidth + 'px',
+            'margin-bottom': (windowHeight - videoHeight) / 2 + 'px',
+            'margin-left': 'initial'
+          }
+        } else {
+          videoHeight = windowHeight
+          videoWidth = videoHeight / 0.5625
+          this.fixStyle = {
+            height: windowHeight + 'px',
+            width: windowHeight / 0.5625 + 'px',
+            'margin-left': (windowWidth - videoWidth) / 2 + 'px',
+            'margin-bottom': 'initial'
+          }
+        }
+      }
+      window.onresize()
+},
+methods: {
     ...mapActions('d2admin/account', [
       'login'
     ]),
-    
     /**
      * @description 提交表单
      */
@@ -58,198 +111,43 @@ export default {
           })
             .then(() => {
               // 重定向对象不存在则返回顶层路径
-              this.$router.replace(this.$route.query.redirect || '/')
+              this.$router.replace(this.$route.query.redirect || '/index')
             })
         }
   }
 }
 </script>
 
-</script>
-<style lang='less'>
-html {
-  height: 100%;
-}
-body{
-  margin: 0;
-  padding: 0;
-}
-#bgc{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-   font-family: sans-serif;
-  background:url("./image/login_bgc.png") no-repeat;
-  background-size:cover;
-}
-
-.login-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  padding: 40px;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5);
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
-}
-
-.login-box h1 {
-  margin: 0 0 20px;
-  letter-spacing:25px;
-  padding: 0;
-  color: #409EFF;
-  text-align: center;
-}
-
-.login-box h2 {
-  margin: 0 0 30px;
-  padding: 0;
-  color: #fff;
-  text-align: center;
-}
-
-.login-box .user-box {
-  position: relative;
-}
-
-.login-box .user-box input {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 30px;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-}
-.login-box .user-box label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: 0.5s;
-}
-
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
-  top: -20px;
-  left: 0;
-  color: #03e9f4;
-  font-size: 12px;
-}
-
-.login-box form a {
-  position: relative;
-  display: inline-block;
-  padding: 10px 20px;
-  color: #03e9f4;
-  font-size: 16px;
-  text-decoration: none;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: 0.5s;
-  margin-top: 40px;
-  letter-spacing: 4px;
-}
-
-.login-box a:hover {
-  background: #03e9f4;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
-    0 0 100px #03e9f4;
-}
-
-.login-box a span {
-  position: absolute;
-  display: block;
-}
-
-.login-box a span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
-  animation: btn-anim1 1s linear infinite;
-}
-
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
+<style scoped>
+  .head{
+    text-align: center;
+    letter-spacing:20px;
+    color:#409EFF;
+    font-size: 20px;
   }
-  50%,
-  100% {
-    left: 100%;
+  .login{
+    opacity:0.8;
+    position: absolute;
+    width: 350px;
+    height: 250px;
+    top: 40%;
+    left: 40%;
+    z-index: 2;
   }
-}
-
-.login-box a span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: 0.25s;
-}
-
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
+  .video-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
   }
-  50%,
-  100% {
-    top: 100%;
+  .video-container video {
+    z-index: 0;
+    position: absolute;
   }
-}
-
-.login-box a span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: 0.5s;
-}
-
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
+ 
+  .video-container .filter {
+    z-index: 1;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
   }
-  50%,
-  100% {
-    right: 100%;
-  }
-}
-
-.login-box a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: 0.75s;
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,
-  100% {
-    bottom: 100%;
-  }
-}
 </style>
+

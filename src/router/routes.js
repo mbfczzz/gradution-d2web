@@ -21,35 +21,7 @@ const frameIn = [
         },
         component: _import('system/index')
       },
-      // 演示页面
-      {
-        path: 'page1',
-        name: 'page1',
-        meta: {
-          title: '页面 1',
-          auth: true
-        },
-        component: _import('demo/page1')
-      },
-      {
-        path: 'page2',
-        name: 'page2',
-        meta: {
-          title: '页面 2',
-          auth: true
-        },
-        component: _import('demo/page2')
-      },
-      {
-        path: 'page3',
-        name: 'page3',
-        meta: {
-          title: '页面 3',
-          auth: true
-        },
-        component: _import('demo/page3')
-      },
-      // 系统 前端日志
+            // 系统 前端日志
       {
         path: 'log',
         name: 'log',
@@ -74,7 +46,7 @@ const frameIn = [
         component: _import('system/function/redirect')
       }
     ]
-  }
+  },
 ]
 
 /**
@@ -92,13 +64,13 @@ const frameOut = [
 /**
  * 错误页面
  */
-const errorPage = [
-  {
-    path: '*',
-    name: '404',
-    component: _import('system/error/404')
-  }
-]
+// const errorPage = [
+//   {
+//     path: '*',
+//     name: '404',
+//     component: _import('system/error/404')
+//   }
+// ]
 
 // 导出需要显示菜单的
 export const frameInRoutes = frameIn
@@ -107,5 +79,5 @@ export const frameInRoutes = frameIn
 export default [
   ...frameIn,
   ...frameOut,
-  ...errorPage
+  // ...errorPage
 ]

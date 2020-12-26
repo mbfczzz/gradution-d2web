@@ -26,7 +26,7 @@ export default {
           <el-menu
             mode="horizontal"
             defaultActive={ this.active }
-            onSelect={ this.handleMenuSelect }>
+            onSelect={ this.handleMenuSelect }> 
             { this.header.map(menu => createMenu.call(this, h, menu)) }
           </el-menu>
         </div>
@@ -71,11 +71,12 @@ export default {
   watch: {
     '$route.matched': {
       handler (val) {
+        console.log(val)
         this.active = val[val.length - 1].path
       },
       immediate: true
     }
-  },
+   },
   methods: {
     scroll (direction) {
       if (direction === 'left') {

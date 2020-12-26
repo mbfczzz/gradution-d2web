@@ -5,9 +5,9 @@ export default {
   namespaced: true,
   state: {
     // 顶栏菜单
-    header: [],
+    header: window.localStorage.getItem("head") == null ? [] : JSON.parse(window.localStorage.getItem("head")), 
     // 侧栏菜单
-    aside: [],
+    aside: window.localStorage.getItem("side") == null ? [] : JSON.parse(window.localStorage.getItem("side")),
     // 侧边栏收缩
     asideCollapse: setting.menu.asideCollapse,
     // 侧边栏折叠动画
@@ -101,6 +101,7 @@ export default {
     headerSet (state, menu) {
       // store 赋值
       state.header = menu
+      window.localStorage.setItem("head",JSON.stringify(menu))
     },
     /**
      * @description 设置侧边栏菜单
@@ -109,7 +110,8 @@ export default {
      */
     asideSet (state, menu) {
       // store 赋值
-      state.aside = menu
+      state.aside=menu
+      window.localStorage.setItem("side",JSON.stringify(menu))
     }
   }
 }

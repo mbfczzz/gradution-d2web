@@ -35,6 +35,9 @@ export default {
      * @param {Array} menu menu
      */
     init (state, menu) {
+      if(!menu.length>0){
+          return
+      }
       const pool = []
       const push = function (menu, titlePrefix = []) {
         menu.forEach(m => {
