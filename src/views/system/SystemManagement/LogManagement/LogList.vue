@@ -16,7 +16,7 @@ export default {
     data(){
         return{
             LogData:{},
-            page:0,
+            page:1,
             limit:10,
             operator:'',
             operatorTime:'',
@@ -48,11 +48,11 @@ export default {
         },
         search:function(data){
             this.operator = data.operator
-            if(data.operatorTime!=''&&data.operatorTime.length>0){
+            if(data.operatorTime instanceof Array){
             this.operatorTime = data.operatorTime[0]+','+data.operatorTime[1]    
             }
             else{
-                this.operatorTime =data.operatorTime 
+                this.operatorTime =data.operatorTime
             }
             this.operatorTarget = data.operatorTarget
             this.operatorModel = data.operatorModel

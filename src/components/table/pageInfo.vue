@@ -5,7 +5,7 @@
       @current-change="handleCurrentChange"
       @prev-click="handlePrevClick"
       @next-click="handleNextClick"
-      :current-page="data.number"
+      :current-page="data.number+1"
       background
       :page-sizes="[10,50,100, 1000,5000,10000]"
       :page-size="data.size"
@@ -21,7 +21,6 @@ export default {
     data(){
         return{
             parentData : {},
-            size:''
         }
     },
     watch:{
@@ -31,17 +30,16 @@ export default {
     },
     methods:{
         handleSizeChange:function(size){
-            this.size = size
-            this.$emit('resetPage',{page:this.$refs.page.currentPage,limit:size})
+            this.$emit('resetPage',{page:this.parentData.number+1,limit:size})
         },
         handleCurrentChange:function(currentPage){
-            this.$emit('resetPage',{page:currentPage-1,limit:this.size})
+            this.$emit('resetPage',{page:currentPage,limit:this.parentData.size})
         },
         handlePrevClick:function(prePage){
-            this.$emit('resetPage',{page:prePage-1,limit:this.size})
+            this.$emit('resetPage',{page:prePage,limit:this.parentData.size})
         },
         handleNextClick:function(nextPage){
-            this.$emit('resetPage',{page:nextPage-1,limit:this.size})
+            this.$emit('resetPage',{page:nextPage,limit:this.parentData})
         }
     }
 }
