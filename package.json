@@ -16,6 +16,7 @@
     "better-scroll": "^1.15.2",
     "core-js": "^3.4.3",
     "dayjs": "^1.8.17",
+    "el-tree-transfer": "^2.4.6",
     "element-ui": "^2.13.1",
     "faker": "^4.1.0",
     "feather-icons": "^4.28.0",

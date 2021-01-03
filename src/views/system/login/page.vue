@@ -7,13 +7,13 @@
   <div style="margin-bottom:20px">
     <el-input v-model="formLogin.username" placeholder="请输入用户名">
       <template slot="prepend">
-          <d2-icon name="user"/>
+          <i class="fa fa-user" aria-hidden="true"></i>
        </template>
     </el-input>
     <div style="margin-top:10px"></div>
     <el-input v-model="formLogin.password" show-password placeholder="请输入密码">
        <template slot="prepend">
-          <d2-icon name="key"/>
+          <i class="fa fa-key" aria-hidden="true"></i>
        </template>
       </el-input>
   </div>

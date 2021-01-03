@@ -1,7 +1,7 @@
 <template>
   <div>
      <el-table
-      :data="tdata.content"
+      :data="tdata.list"
       max-height="600"
       stripe
       :default-sort = "{prop: 'operatorTime', order: 'descending'}"

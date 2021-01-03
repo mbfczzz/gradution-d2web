@@ -39,7 +39,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/gradution': {
-        target: 'http://'+process.env.CORS_URL+'localhost/gradution',
+        target: 'http://localhost:1201/gradution',
         ws: true,
         changeOrigin: true,
         pathRewrite: {
