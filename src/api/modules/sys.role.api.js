@@ -16,7 +16,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
       GET_ALL_ROLE(data){
         return request({
           url: '/user/getAllRole',
-          method: 'get',
+          method: 'GET',
           type:'application/x-www-form-urlencoded',
           data:Qs.stringify(data)
         })
@@ -28,10 +28,10 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
           data
         })
       },
-      ADD_ROLE (data){
+      UPDATE_TREE_PERMISSION (data){
         return request({
-          url: '/user/addRole',
-          method: 'POST',
+          url: '/user/updateTreePermission',
+          method: 'put',
           data
         })
       },

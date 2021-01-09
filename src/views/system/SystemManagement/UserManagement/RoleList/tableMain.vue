@@ -1,8 +1,8 @@
 <template>
   <div>
      <el-card>
-     <el-button type="primary" @click="addUser">添加</el-button>
-     <el-button type="danger" @click="deleteUser">批量删除</el-button>
+     <el-button type="primary" @click="addRole">添加</el-button>
+     <el-button type="danger" @click="deleteRole">批量删除</el-button>
      </el-card> 
    <el-table
       :data="tdata.list"
@@ -34,7 +34,7 @@
         label="更新时间"
         align=center>
     <template slot-scope="scope">
-        <i class="fa fa-clock-o" aria-hidden="true"></i> 
+        <i class="fa fa-clock-o" aria-hidden="true" v-if="scope.row.updateTime"></i> 
         <span style="margin-left: 10px">{{ scope.row.updateTime}}</span>
     </template>    
     </el-table-column>
@@ -71,6 +71,12 @@
           编辑
     </el-button>
     <el-button
+          type="info"
+          size="mini"
+          @click="handlePermission(scope.$index, scope.row)">
+          分配角色权限
+    </el-button>
+    <el-button
           size="mini"
           type="danger"
           @click="handleDelete(scope.$index, scope.row)">
@@ -80,7 +86,8 @@
     </el-table-column>
     </el-table>  
     <page-info :data="tdata" @resetPage="resetPage" style="margin-top:20px"></page-info>
-    <!-- <add ref="add" :options="data" @reload='reload'></add> -->
+    <add ref="add" @reload='reload'></add>
+    <edit-permission :options="options" @reload='reload' ref="permission"></edit-permission>
     </div>
 </template>
 
@@ -88,21 +95,17 @@
 import PageInfo from '@/components/table/pageInfo'
 import add from './common/add'
 import api from '@/api'
+import log from '@/libs/util.log'
+import editPermission from './common/editPermission'
 export default {
-  components: { PageInfo,add},
+  components: { PageInfo,editPermission,add},
     name:"tableMain",
     props:['tdata','options'],
     data(){
       return{
-        data : [],
         id:[]
       }
     },
-    watch:{
-			options:function(newData,oldData){
-        this.data = this.handlerData(newData)
-			}
-		},
     methods:{
       /**
        * 添加角色
@@ -115,10 +118,49 @@ export default {
         this.$refs.add.form.roleName = ''
         this.$refs.add.form.permission = this.getDefaultPermission()
       },
+       /**
+       * 多选事件
+       */
+      select:function (row) {
+        let tmp=[]
+        row.forEach(s=>{
+          tmp.push(s.id)
+        })
+        this.id = tmp
+      },
+      /**
+       * 页面重载
+       */
+      reload:function () {
+        this.$emit('reload')
+      },
+        /**
+         * 编辑角色
+         */
+        handlePermission:function (index,row) {
+        let id =[]
+        this.$refs.permission.drawer = true
+        row.permission.map(x=>{
+          id.push(x.id)
+          if(x.children.length>0){
+              x.children.map(x=>{
+                id.push(x.id)
+                 if(x.children.length>0){
+                   x.children.map(x=>{
+                   id.push(x.id)
+                  })
+                }
+              })
+          }
+          return id
+        })
+        this.$refs.permission.data = id
+        this.$refs.permission.id = row.id
+      },
       /**
        * 批量删除
        */
-      deleteUser:async function () {
+      deleteRole:async function () {
        if(this.id.length==0){
           this.$message({
             showClose: true,
@@ -139,31 +181,6 @@ export default {
         }
       },
       /**
-       * 获取默认角色 普通用户
-       */
-      getDefaultPermission:function () {
-        let tmp=[]
-        this.data.forEach(s=>{
-          if(s.label ==="普通用户"){
-            tmp.push(s.key)
-          }
-        })
-        return tmp
-      },
-      reload:function () {
-        this.$emit('reload')
-      },
-      /**
-       * 多选事件
-       */
-      select:function (row) {
-        let tmp=[]
-        row.forEach(s=>{
-          tmp.push(s.id)
-        })
-        this.id = tmp
-      },
-      /**
        * 格式化默认显示时间 yyyy-MM-dd hh:mm:ss
        */
       getFormatTime: function (date){ 
@@ -179,15 +196,14 @@ export default {
         this.$emit("resetPage",data)   
       },
       /**
-       * 修改用户
+       * 修改角色
        */
       handleEdit:function(index,row){
         this.$refs.add.DialogVisible = true
-        this.$refs.add.title = "修改用户"
+        this.$refs.add.title = "修改角色"
         this.$refs.add.form.id = row.id
-        this.$refs.add.form.username = row.username
+        this.$refs.add.form.roleName = row.roleName
         this.$refs.add.form.createTime = row.createTime
-        this.$refs.add.form.userole = this.roleValue(row.role)
       },
       /**
        * 单个删除
@@ -206,32 +222,7 @@ export default {
         this.reload()
         }
       },
-      /**
-       * 处理原始数据 转换成key value
-       */
-      handlerData(data){
-      let tmp=[]
-      data.forEach(element => {
-      let obj = {
-      key:element.value,
-      label:element.name,
-        }              
-      tmp.push(obj)
-        });
-      return tmp
-      },
-      /**
-       * 
-       * 默认显示的角色
-       */
-      roleValue(arr){
-      let tmp =[]
-        arr.forEach(s=>{
-            tmp.push(s.value)
-        })
-        return tmp
-      }
-      }
+        }
 }
 </script>
 

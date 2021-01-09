@@ -56,11 +56,6 @@ export default {
             },
         }
     },
-    computed:{
-      getTime:function () {
-         return this.form.createTime.split(" ")[2];
-      }
-    },
     methods:{
       reset:function () {
         this.DialogVisible = false

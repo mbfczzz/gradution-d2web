@@ -5,11 +5,8 @@
   width="40%"
   center>
   <el-form ref="form" :model="form" label-width="80px">
-  <el-form-item label="用户名" >
-    <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
-  </el-form-item>
-  <el-form-item label="密码">
-    <el-input placeholder="请输入密码" v-model="form.password" show-password></el-input>
+  <el-form-item label="角色名" >
+    <el-input v-model="form.roleName" placeholder="请输入角色名"></el-input>
   </el-form-item>
   <el-form-item label="创建时间">
         <el-date-picker
@@ -22,14 +19,6 @@
             >
         </el-date-picker>
   </el-form-item>
-  <el-form-item label="用户角色">
-    <el-transfer 
-    v-model="form.userole" 
-    :data="options"
-    :titles="['未有角色','已有角色']"
-    :right-default-checked="form.userole"
-    ></el-transfer>
-  </el-form-item>
 </el-form>
   <span slot="footer" class="dialog-footer">
     <el-button @click="reset">重 置</el-button>
@@ -40,27 +29,18 @@
 
 <script>
 import api from '@/api'
-import treeTransfer from 'el-tree-transfer' // 引入
 export default {
     name:"add",
-    props:['options'],
     data(){
         return{
             DialogVisible:false,
-            title:"",
+            ztitle:"",
             form:{
               id:"",
-              username:"",
+              roleName:"",
               createTime:"",
-              password:"",
-              userole:[],
             },
         }
-    },
-    computed:{
-      getTime:function () {
-         return this.form.createTime.split(" ")[2];
-      }
     },
     methods:{
       reset:function () {
@@ -70,12 +50,10 @@ export default {
         this.$emit("reload")
       },
       onSubmit:async function () {
-        const res = await api.UPDATE_USER({
+        const res = await api.UPDATE_ROLE({
           id:this.form.id,
-          username:this.form.username,
+          roleName:this.form.roleName,
           createTime:this.form.createTime,
-          userole:this.form.userole.join(","),
-          password:this.form.password
         })
         if(res.code){
         this.$message({
@@ -87,7 +65,7 @@ export default {
         this.DialogVisible = false
         this.reload()
         }
-      }
+      },
     }
 }
 </script>

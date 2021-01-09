@@ -46,7 +46,6 @@ export default {
         getPermission:async function(){
              const data  =  await api.TREE_PERMISSION()
              this.options = data.result
-             console.log(data);
         },
     }
 }
