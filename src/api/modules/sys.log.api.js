@@ -6,7 +6,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
        */
         LOG_LIST (data) {
         return request({
-          url: '/log/searchAllLog',
+          url: process.env.ADMIN_SERVICE+'/log/searchAllLog',
           method: 'post',
           type:'application/x-www-form-urlencoded',
           data:Qs.stringify(data)

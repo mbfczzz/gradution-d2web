@@ -38,12 +38,12 @@ module.exports = {
   lintOnSave: false,
   devServer: {
     proxy: {
-      '/gradution': {
-        target: 'http://localhost:1201/gradution',
+      '/': {
+        target: 'http://localhost:1401/',
         ws: true,
         changeOrigin: true,
         pathRewrite: {
-          '^/gradution': ''
+          '^/': ''
         }
       }
     },

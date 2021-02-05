@@ -9,13 +9,13 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
             data = "/"+data
         }
         return request({
-          url: '/user/getUserRole'+data,
+          url: process.env.ADMIN_SERVICE+'/user/getUserRole'+data,
           method: 'get',
         })
       },
       GET_ALL_ROLE(data){
         return request({
-          url: '/user/getAllRole',
+          url: process.env.ADMIN_SERVICE+'/user/getAllRole',
           method: 'GET',
           type:'application/x-www-form-urlencoded',
           data:Qs.stringify(data)
@@ -23,14 +23,14 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
       },
       UPDATE_ROLE (data){
         return request({
-          url: '/user/updateRole',
+          url: process.env.ADMIN_SERVICE+'/user/updateRole',
           method: 'PUT',
           data
         })
       },
       UPDATE_TREE_PERMISSION (data){
         return request({
-          url: '/user/updateTreePermission',
+          url: process.env.ADMIN_SERVICE+'/user/updateTreePermission',
           method: 'put',
           data
         })
@@ -38,7 +38,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
       DELETE_ROLE(data){
         console.log(data);
        return request({
-          url: '/user/deleteRole/'+data,
+          url: process.env.ADMIN_SERVICE+'/user/deleteRole/'+data,
           method: 'DELETE',
         })
       }

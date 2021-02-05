@@ -16,7 +16,7 @@
 
         <el-col :span="4">
                     <el-form-item label="层级">
-                        <el-select v-model="queryParameter.Hierarchy" placeholder="请选择">
+                        <el-select v-model="queryParameter.hierarchy" placeholder="请选择">
                                 <el-option
                                     v-for="item in Hierarchys"
                                     :key="item.value"

@@ -49,7 +49,7 @@ export default {
                  permissionName:this.permissionName,
                  strDate:this.strDate,
                  permissionType:this.permissionType,
-                 hierarchy:this.Hierarchy,
+                 hierarchy:this.hierarchy,
                  isValid:this.isValid,
                  name:this.name
              }
@@ -81,7 +81,7 @@ export default {
             this.permissionName=data.permissionName
             this.name=data.name
             this.permissionType=data.permissionType
-            this.hierarchy=data.Hierarchy,
+            this.hierarchy=data.hierarchy,
             this.showPermission()
         },
         getPermissionType:async function(){
