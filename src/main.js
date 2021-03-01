@@ -2,8 +2,11 @@
 import Vue from 'vue'
 import i18n from './i18n'
 import App from './App'
+import Antd from 'ant-design-vue'
 // 核心插件
 import d2Admin from '@/plugin/d2admin'
+import WS from '@/api/websocket'
+Vue.prototype.$ws = WS
 // store
 import store from '@/store/index'
 
@@ -14,6 +17,7 @@ import { frameInRoutes } from '@/router/routes'
 
 // 核心插件
 Vue.use(d2Admin)
+Vue.use(Antd)
 
 new Vue({
   router,

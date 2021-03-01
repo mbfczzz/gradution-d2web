@@ -12,7 +12,9 @@ export default {
     '$i18n.locale': 'i18nHandle'
   },
   created () {
+    let id = JSON.parse(window.localStorage.getItem("d2admin-1.20.1")).sys.user["ghost-uuid"].user.info.user.id;
     this.i18nHandle(this.$i18n.locale)
+    this.$ws.createWS(id);
   },
   methods: {
     i18nHandle (val, oldVal) {

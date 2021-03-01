@@ -36,6 +36,7 @@ function createService () {
         // 有 code 代表这是一个后端接口 可以进行进一步的判断
         switch (code) {
           case 200:
+            console.log(dataAxios);
             // [ 示例 ] code === 0 代表没有错误
             return dataAxios
           case '400':

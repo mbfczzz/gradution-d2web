@@ -10,7 +10,6 @@ export default {
     },
      actions:{
         async  getRoute({dispatch,state}){
-            console.log(5555);
             const res = await api.USER_USERINFO()
             let index = addIndex(res.result.head)
             localStorage.setItem("head",JSON.stringify(index))
@@ -21,11 +20,10 @@ export default {
             state.route = routeTable
             router.addRoutes(routeTable)
             await dispatch('d2admin/account/load',null,{root:true})
-            await dispatch('d2admin/user/set', { name: res.result.username }, { root: true })
+            await dispatch('d2admin/user/set', { user: res.result.user}, { root: true })
             // 设置 vuex 用户信息
         },
-       async routeset({state}){
-           console.log(1111)
+        routeset({state}){
             state.route=[]
         }
     }

@@ -5,7 +5,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
      */
      USER_LOGIN (data) {
       return request({
-        url: process.env.AUTH_SERVICE+'/login',
+        url: process.env.VUE_APP_ADMIN+'/login',
         method: 'post',
         data
       })

@@ -6,7 +6,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
      */
      USER_SEARCH (data) {
       return request({
-        url: process.env.ADMIN_SERVICE+'/user/getAllUser',
+        url:process.env.VUE_APP_ADMIN+'/user/getAllUser',
         method: 'post',
         type:'application/x-www-form-urlencoded',
         data:Qs.stringify(data)
@@ -15,7 +15,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
 
     UPDATE_USER (data){
       return request({
-        url: process.env.ADMIN_SERVICE+'/user/updateUser',
+        url:process.env.VUE_APP_ADMIN+'/user/updateUser',
         method: 'PUT',
         data
       })
@@ -23,7 +23,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
 
     ADD_USER (data){
       return request({
-        url: process.env.ADMIN_SERVICE+'/user/addUser',
+        url:process.env.VUE_APP_ADMIN+'/user/addUser',
         method: 'POST',
         data
       })
@@ -32,7 +32,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
     DELETE_USER(data){
       console.log(data);
      return request({
-        url: process.env.ADMIN_SERVICE+'/user/deleteUser/'+data,
+        url:process.env.VUE_APP_ADMIN+'/user/deleteUser/'+data,
         method: 'DELETE',
       })
     }

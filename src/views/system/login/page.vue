@@ -103,8 +103,7 @@ methods: {
      * @description 提交表单
      */
     // 提交登录信息
-    onLogin () {
-          
+    onLogin () {     
           this.login({
             username: this.formLogin.username,
             password: this.formLogin.password

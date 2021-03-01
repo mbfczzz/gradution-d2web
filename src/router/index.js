@@ -34,8 +34,6 @@ const router = new VueRouter({
  * 权限验证
  */
 router.beforeEach(async (to, from, next) => {
-  console.log(from);
-  console.log(to);
   // 确认已经加载多标签页数据 https://github.com/d2-projects/d2-admin/issues/201
   await store.dispatch('d2admin/page/isLoaded')
   // 确认已经加载组件尺寸设置 https://github.com/d2-projects/d2-admin/issues/198
@@ -51,21 +49,17 @@ router.beforeEach(async (to, from, next) => {
     // 请根据自身业务需修改
     const token = util.cookies.get('token')
     if(to.path ==='/login'){
-      console.log("login");
       next()
     }
     else if (token && token !== 'undefined') {
         if(store.state.d2admin.route.route.length !=0 && store.state.d2admin.route.route!=null){
-          console.log("success");
           next()
         }
         else{
           await store.dispatch("d2admin/route/getRoute")
-          console.log("authsuccess");
           next(to.path)
         }
     } else {
-      console.log("tologin");
       // 没有登录的时候跳转到登录界面
       // 携带上登陆成功之后需要跳转的页面完整路径
       next({
@@ -74,7 +68,6 @@ router.beforeEach(async (to, from, next) => {
           redirect: to.fullPath
         }
       })
-      // https://github.com/d2-projects/d2-admin/issues/138
       NProgress.done()
     }
   })

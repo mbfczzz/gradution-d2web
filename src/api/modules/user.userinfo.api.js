@@ -5,7 +5,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
        */
        USER_USERINFO (data) {
         return request({
-          url: process.env.ADMIN_SERVICE+'/getUserInfo',
+          url: process.env.VUE_APP_ADMIN+'/getUserInfo',
           method:'get',
           data,
         })

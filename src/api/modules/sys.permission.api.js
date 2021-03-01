@@ -9,19 +9,19 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
             data = "/"+data
         }
         return request({
-          url: process.env.ADMIN_SERVICE+'/user/getUserRole'+data,
+          url:process.env.VUE_APP_ADMIN+'/user/getUserRole'+data,
           method: 'get',
         })
       },
       TREE_PERMISSION (data) {
         return request({
-          url: process.env.ADMIN_SERVICE+'/user/getTreePermission',
+          url:process.env.VUE_APP_ADMIN+'/user/getTreePermission',
           method: 'get',
         })
       },
       GET_ALL_PERMISSION (data) {
         return request({
-          url: process.env.ADMIN_SERVICE+'/user/getAllPermission',
+          url:process.env.VUE_APP_ADMIN+'/user/getAllPermission',
           method: 'POST',
           type:'application/x-www-form-urlencoded',
           data:Qs.stringify(data)
@@ -29,26 +29,26 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
       },
       GET_PERMISSIONTYPE (data) {
         return request({
-          url: process.env.ADMIN_SERVICE+'/user/getPermissionType',
+          url:process.env.VUE_APP_ADMIN+'/user/getPermissionType',
           method: 'GET',
         })
       },
       GET_HIERARCHY (data) {
         return request({
-          url: process.env.ADMIN_SERVICE+'/user/getHierarchy',
+          url:process.env.VUE_APP_ADMIN+'/user/getHierarchy',
           method: 'GET',
         })
       },
       UPDATE_PERMISSION (data) {
         return request({
-          url: process.env.ADMIN_SERVICE+'/user/updatePermission',
+          url:process.env.VUE_APP_ADMIN+'/user/updatePermission',
           method: 'POST',
           data
         })
       },
       ADD_PERMISSION (data) {
         return request({
-          url: process.env.ADMIN_SERVICE+'/user/addPermission',
+          url:process.env.VUE_APP_ADMIN+'/user/addPermission',
           method: 'POST',
           data
         })
