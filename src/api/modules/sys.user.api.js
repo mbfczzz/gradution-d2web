@@ -28,9 +28,7 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
         data
       })
     },
-
     DELETE_USER(data){
-      console.log(data);
      return request({
         url:process.env.VUE_APP_ADMIN+'/user/deleteUser/'+data,
         method: 'DELETE',

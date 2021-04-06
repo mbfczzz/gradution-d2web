@@ -1,11 +1,32 @@
 <template>
-<div style="position:absolute;width:50%">
-  <el-card class="box-card" style="position:relative;left:400px;top:50px">
+<el-card >
+<el-row :gutter="20">
+  <el-col :span="8">
+    <el-card>
+        <div slot="header" style="text-align:center">
+        <span>
+            <el-tag
+            style="color:#67C23A"
+            v-if="info.user.username"
+            effect="dark"
+            type="info"
+            >
+            {{info.user.username}}历史消息
+            </el-tag></span>
+        </div>
+  <div>
+    <history-deliver></history-deliver>
+  </div>
+</el-card>
+    </el-col>
+  <el-col :span="12">
+  <div>
+  <el-card>
   <div slot="header" class="clearfix">
     <span>发布消息</span>
   </div>
-  <div>
-  <el-form ref="form" :model="form" label-width="80px">
+  <div style="padding-right:100px">
+  <el-form ref="form" :model="form" label-width="80px" style="height:710px">
   <el-form-item label="发送人">
   <div class="tag-group">
   <span class="tag-group__title"><el-tag type="success">{{info.user.username}}</el-tag></span>
@@ -28,7 +49,9 @@
     <el-input v-model="form.msgTitle" class="widthClass"></el-input>
   </el-form-item>
   <el-form-item label="消息内容">
-    <el-input type="textarea" v-model="form.msgContent" class="widthClass"></el-input>
+    <el-input type="textarea" 
+    :rows="6"
+    v-model="form.msgContent" class="widthClass"></el-input>
   </el-form-item>
   <el-form-item label="发送方式">
     <el-select v-model="form.tosendway" placeholder="请选择发送方式" class="widthClass">
@@ -55,13 +78,20 @@
   </div>
 </el-card>
 </div>
+ </el-col>
+  <el-col :span="4"></el-col>
+</el-row>
+</el-card>
 </template>
 
 <script>
 import api from "@/api"
 import { mapState } from 'vuex'
+import HistoryDeliver from './DeliverAnnouncement/HistoryDeliver'
+import { Message } from 'element-ui';
   export default {
     name:"DeliverAnnouncement",
+    components:{HistoryDeliver},
     data() {
       return {
         fromsendway:[],
@@ -88,7 +118,7 @@ import { mapState } from 'vuex'
     methods: {
       onSubmit:async function(){
           const res = await api.SEND_MESSAGE({
-            sendPeople : this.info.name,
+            sendPeople : this.info.user.username,
             modelId : this.form.template,
             msgTitle : this.form.msgTitle,
             msgContent : this.form.msgContent,
@@ -96,7 +126,7 @@ import { mapState } from 'vuex'
             sendType : this.form.sendType
             })
           if(res.code===200){
-          this.$message({
+              Message({
               showClose: true,
               message: res.message,
               center:true,
@@ -104,7 +134,7 @@ import { mapState } from 'vuex'
           });
           }
           else{
-          this.$message({
+              Message({
               showClose: true,
               message: res.message,
               center:true,
@@ -141,7 +171,7 @@ import { mapState } from 'vuex'
 
 <style scoped>
 .widthClass{
-  width: 700px;
+  width:600px;
 }
 .clearfix{
   text-align: center;

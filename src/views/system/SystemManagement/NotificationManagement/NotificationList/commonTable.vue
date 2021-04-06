@@ -1,22 +1,25 @@
 <template>
         <el-container>  
              <el-header
+             :height="height"
              >
                      <table-head 
+                     ref="tableHead"
                      @search="search"
-                     :types="types"
-                     :permissions="permissions"
-                     :Hierarchys="Hierarchys"
+                     :msgSources="msgSources"
+                     :sendSubjects="sendSubjects"
+                     :sendWays="sendWays"
                      ></table-head>
              </el-header>
              <el-main>
                      <table-main
                      :tdata="data" 
+                     :msgSources="msgSources"
+                     :sendSubjects="sendSubjects"
+                     :sendWays="sendWays"
                      @resetPage="resetPage" 
-                     :types="types"
-                     :permissions="permissions"
-                     :Hierarchys="Hierarchys"  
-                     @reload='reload'></table-main>
+                     @reload='reload'
+                     ></table-main>
              </el-main>
         </el-container>
 </template>
@@ -30,11 +33,20 @@ export default {
             tableMain,
             tableHead
         },
-        props:['data','types','permissions','Hierarchys'],
+        props:['data','msgSources','sendSubjects','sendWays'],
         data(){
              return{
- 
+                height:""
              }   
+        },
+        mounted(){
+                let height = this.$refs.tableHead.$el.offsetHeight;
+                this.$watch(
+                function() {
+                        this.height = height.toString()
+                        return height
+                },
+                );
         },
         methods:{
                 resetPage:function(data){

@@ -25,7 +25,12 @@ export default {
             type: String,
             default: '你没有新的消息'
         },
-    }
+    },
+    data(){
+        return {
+            iconColor: "#409EFF", 
+        }
+    },
 }
 </script>
 

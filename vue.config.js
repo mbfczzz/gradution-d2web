@@ -37,16 +37,6 @@ module.exports = {
   publicPath,
   lintOnSave: false,
   devServer: {
-    // proxy: {
-    //   '/': {
-    //     target: 'http://localhost:1401/',
-    //     ws: true,
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       '^/': ''
-    //     }
-    //   }
-    // },
     publicPath, // 和 publicPath 保持一致
     disableHostCheck: process.env.NODE_ENV === 'development' // 关闭 host check，方便使用 ngrok 之类的内网转发工具
   },

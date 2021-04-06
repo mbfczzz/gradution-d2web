@@ -1,5 +1,4 @@
-import store from '../store'
-
+import store from '@/store/index'
 const WS = {
     id:'',
     $websocket:null, // webscoket实例
@@ -18,20 +17,18 @@ const WS = {
     },
 
     wsOpen: function() {
-        debugger
         let  con = {
             uid:WS.id,
             message:'连接成功'    
         };
         this.send(JSON.stringify(con))
         console.log('== websocket open ==')
-        heartBeat.start()
     },
 
     wsMessage:function(msg) {
-        console.log('== websocket message ==', msg)
-        heartBeat.reset()
-        store.commit('d2admin/websocket/SET_WS_MSG', msg.data)
+        if(msg.data != "服务器连接成功！"){
+            store.commit("d2admin/websocket/set",msg.data)
+        }
     },
 
     wsError: function(err){
@@ -40,28 +37,6 @@ const WS = {
 
     wsClose: function(event){
         console.log('== websocket close ==', event)
-    }
-}
-
-const heartBeat = {
-    timeout:30000, // 心跳重连时间
-    timeoutObj:null, // 定时器
-    reset:function(){
-        clearInterval(this.timeoutObj)
-        console.log('websocket 心跳')
-        console.log(WS);
-        this.start()
-    },
-    start:function(){
-        this.timeoutObj = setTimeout(function(){
-            if(WS.$websocket.readyState === 1){
-                let heart = {
-                    id:WS.id,
-                    heart:'HeartBeat'
-                }
-                WS.$websocket.send(JSON.stringify(heart))
-            }
-        },this.timeout)
     }
 }
 export default WS

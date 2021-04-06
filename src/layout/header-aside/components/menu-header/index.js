@@ -71,7 +71,6 @@ export default {
   watch: {
     '$route.matched': {
       handler (val) {
-        console.log(val)
         this.active = val[val.length - 1].path
       },
       immediate: true

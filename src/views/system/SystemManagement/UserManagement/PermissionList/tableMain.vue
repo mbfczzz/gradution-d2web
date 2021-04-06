@@ -198,7 +198,7 @@ export default {
             type:"warning"
         });
        }
-       const res = await api.DELETE_USER(this.id)
+       const res = await api.DELETE_MSG(this.id)
         if(res.code ===200){
         this.$message({
             showClose: true,
@@ -262,8 +262,8 @@ export default {
       handleDelete: async function(index,row){
         let arr=[]
         arr.push(row.id)
-        const res = await api.DELETE_USER(arr)
-        if(res.code ===200){
+        const res = await api.DELETE_MSG(arr)
+        if(res.code === 200){
         this.$message({
             showClose: true,
             message: res.message,

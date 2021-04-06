@@ -23,6 +23,8 @@
 
 <script>
 import api from '@/api'
+import { Message } from 'element-ui';
+import { MessageBox } from 'element-ui';
 export default {
     name:"editPermission",
     props:["options"],
@@ -36,7 +38,7 @@ export default {
     },
     methods: {
       handleClose(done) {
-        this.$confirm('确认分配权限？')
+        MessageBox.confirm('确认分配权限？')
           .then(_ => {
             this.handlePermission(this.$refs.tree.getCheckedKeys().join(","));
             done();
@@ -52,7 +54,7 @@ export default {
           rolePermission:permission
         })
         if(res.code){
-        this.$message({
+        Message({
             showClose: true,
             message: res.message,
             center:true,

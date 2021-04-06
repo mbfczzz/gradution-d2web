@@ -34,7 +34,7 @@ export default {
     data(){
         return{
             DialogVisible:false,
-            ztitle:"",
+            title:"",
             form:{
               id:"",
               roleName:"",

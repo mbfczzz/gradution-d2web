@@ -119,6 +119,7 @@
 import PageInfo from '@/components/table/pageInfo'
 import add from './common/add'
 import api from '@/api'
+import { Message } from 'element-ui';
 export default {
   components: { PageInfo,add},
     name:"tableMain",
@@ -152,7 +153,7 @@ export default {
        */
       deleteUser:async function () {
        if(this.id.length==0){
-          this.$message({
+          Message({
             showClose: true,
             message: "未勾选删除用户!",
             center:true,
@@ -161,7 +162,7 @@ export default {
        }
        const res = await api.DELETE_USER(this.id)
         if(res.code ===200){
-        this.$message({
+        Message({
             showClose: true,
             message: res.message,
             center:true,
@@ -226,10 +227,11 @@ export default {
        */
       handleDelete: async function(index,row){
         let arr=[]
+        console.log(row.id);
         arr.push(row.id)
         const res = await api.DELETE_USER(arr)
         if(res.code ===200){
-        this.$message({
+        Message({
             showClose: true,
             message: res.message,
             center:true,

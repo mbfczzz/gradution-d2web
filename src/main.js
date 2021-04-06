@@ -1,7 +1,6 @@
 // Vue
 import Vue from 'vue'
 import i18n from './i18n'
-import App from './App'
 import Antd from 'ant-design-vue'
 // 核心插件
 import d2Admin from '@/plugin/d2admin'
@@ -14,6 +13,7 @@ import store from '@/store/index'
 import router from './router'
 // import { menuHeader, menuAside } from '@/menu'
 import { frameInRoutes } from '@/router/routes'
+import App from './App'
 
 // 核心插件
 Vue.use(d2Admin)
@@ -26,7 +26,8 @@ new Vue({
   render: h => h(App),
   created () {
     // 处理路由 得到每一级的路由设置
-    this.$store.commit('d2admin/page/init', frameInRoutes)
+    let routes = [...frameInRoutes,...JSON.parse(window.localStorage.getItem("routeside"))!=null?JSON.parse(window.localStorage.getItem("routeside")):[]];
+    this.$store.commit('d2admin/page/init',routes)
     // // 设置顶栏菜单
     this.$store.commit('d2admin/menu/headerSet',
     JSON.parse(window.localStorage.getItem("head"))!=null?JSON.parse(window.localStorage.getItem("head")):[]
@@ -34,7 +35,7 @@ new Vue({
     // // 设置侧边栏菜单
     // 初始化菜单搜索功能
     this.$store.commit('d2admin/search/init',
-    JSON.parse(window.localStorage.getItem("head"))!=null?JSON.parse(window.localStorage.getItem("head")):[])
+    JSON.parse(window.localStorage.getItem("side"))!=null?JSON.parse(window.localStorage.getItem("side")):[])
   }, 
   mounted () {
     // 展示系统信息

@@ -1,11 +1,11 @@
 export default {
     namespaced:true,
     state:{
-        webSocketMsg:''
+        message:''
     },
-    mutations:{
-       SET_WS_MSG({state,msg}){
-            state.webSocketMsg=msg
+    mutations: {
+        set (state,msg) {
+          state.message = msg
         }
-    }
+      },   
 }

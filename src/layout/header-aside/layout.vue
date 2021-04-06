@@ -113,10 +113,15 @@ export default {
   data () {
     return {
       // [侧边栏宽度] 正常状态
-      asideWidth: '200px',
+      asideWidth: '250px',
       // [侧边栏宽度] 折叠状态
-      asideWidthCollapse: '45px'
+      asideWidthCollapse: '65px'
     }
+  },
+  created(){
+    let id = util.cookies.get("uuid");
+    this.i18nHandle(this.$i18n.locale)
+    // this.$ws.createWS(id);
   },
   computed: {
     ...mapState('d2admin', {

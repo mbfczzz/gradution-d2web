@@ -9,6 +9,9 @@
     line-height: 36px;
   }
 }
+.el-tabs__nav-scroll{
+  justify-content: left;
+}
 
 // 整体框架结构
 .d2-layout-header-aside-group {
@@ -86,7 +89,7 @@
       .d2-theme-container-main {
         padding: 0px;
         position: relative;
-        overflow: hidden;
+        overflow: auto;
         .d2-theme-container-main-layer {
           position: absolute;
           top: 0px;
@@ -244,7 +247,7 @@
           height: 41px;
           // 多页面控制器
           .d2-multiple-page-control-group {
-            padding-right: 20px;
+            // padding-right: 20px;
             .d2-multiple-page-control-content {
               overflow: auto;
               position: relative;

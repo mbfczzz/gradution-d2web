@@ -9,8 +9,12 @@
             <d2-icon-svg v-if="type === 'Favorite'" class="drop-left-icon" :style="{color: iconColor}" name="Favorite"/>
         </div>
         <div class="drop-right">
-            <p>{{text}}</p>
-            <p>{{time}}</p>
+            <div>{{title}}</div>
+            <div class="item">{{content}}</div>
+            <div class="time">
+               <p>{{time}}</p>
+               <p><el-button type="text">未读</el-button></p> 
+            </div>
         </div>
     </div>
 </template>
@@ -26,9 +30,14 @@ export default {
                 return ['Zhuye', 'Email','Friend','Approval','Refuse','Favorite'].indexOf(value) !== -1
             }
         },
-        text:{
+        title:{
             type: String,
-            default: 'Zhuye',
+            default: '没有数据',
+            required: true
+        },
+        content:{
+            type: String,
+            default: '没用数据',
             required: true
         },
         time:{
@@ -75,9 +84,9 @@ export default {
 .drop{
     width: 300px;
     min-height: 65px !important;
-    max-height: 87px !important;
+    max-height: 100px !important;
     border-bottom: 1px solid #dcdfe6;
-    padding: 12px 24px;
+    padding: 0px 24px 0px 24px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -107,25 +116,16 @@ export default {
     opacity: 0.9;
     transition: all 0.5s;
 }
-.drop-right{
-    flex: 1;
-    display: flex;
-    align-items: stretch;
-    flex-wrap: wrap;
-}
-.drop-right p{
-    width: 100%;
+.drop-right div{
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.drop-right p:nth-child(1){
+.drop-right div:nth-child(1){
     font-size: 14px;
     font-weight: 400;
     line-height: 22px;
-    color: #515a6e;
+    color: #67C23A;
     margin-bottom: 5px;
-    max-height: 44px;
-    min-height: 22px;
     text-overflow: -o-ellipsis-lastline;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -133,8 +133,35 @@ export default {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
-.drop-right p:nth-child(2){
+.drop-right{
+    width: 268px;
+    display: flex;
+    flex-direction: column;
+    text-overflow: ellipsis;
+    flex-wrap:wrap;
+    align-items:stretch;
+    max-width: 220px;
+}
+.drop-right div:nth-child(2){
+    font-size: 12px;
+    color: #606266;
+    max-height: 50px;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+}
+.drop-right div:nth-child(3){
     font-size: 12px;
     color: #808695;
+}
+.time{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between ;
+}
+.el-button{
+    padding: 0 0;
+}
+p{
+    margin: 0 0;
 }
 </style>

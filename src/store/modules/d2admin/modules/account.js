@@ -18,8 +18,7 @@ export default {
       password = ''
     } = {}) {
       const res = await api.USER_LOGIN({ username, password })
-      console.log(res);
-      util.cookies.set('token', res.result.token)
+      util.cookies.set('token',res.result.token)
       },
     /**
      * @description 注销用户并返回登录页面

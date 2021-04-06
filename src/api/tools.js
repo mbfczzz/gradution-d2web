@@ -19,7 +19,7 @@ export function parse (jsonString = '{}', defaultValue = {}) {
 }
 
 export function addIndex(arr){
-     arr.push({path:"/index",title:"首页"})
+     arr.push({path:"/index",title:"首页",icon: 'indent'})
      return arr
 }
 
@@ -30,7 +30,8 @@ export function createRoute(allmenu){
     let routeObj = {}
       routeObj.path = s.path,
       routeObj.name = s.name,
-      routeObj.meta = {auth:true}
+      routeObj.meta = {auth:true,title:s.title}
+      routeObj.icon = s.icon
       routeObj.component = layoutHeaderAside
       routeObj.children = []
       s.children.forEach(k=>{
@@ -39,7 +40,8 @@ export function createRoute(allmenu){
             let tmp = {}
             tmp.path = m.path,
             tmp.name = m.name,
-            tmp.meta = {auth:true}
+            tmp.icon = m.icon
+            tmp.meta = {auth:true,title:m.title}
             tmp.component = _import(m.component)
             routeObj.children.push(tmp)
           })

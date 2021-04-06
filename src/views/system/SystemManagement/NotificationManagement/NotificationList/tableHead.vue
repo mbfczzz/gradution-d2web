@@ -1,64 +1,67 @@
 <template>
     <el-form ref="userForm" :model="queryParameter" label-width="80px">
-
-        <el-row style="text-algin:center">
             <el-card shadow="never">
             <el-col :span="4">
-                    <el-form-item label="权限名">
-                        <el-input v-model="queryParameter.permissionName" placeholder="请输入权限名"></el-input>
+                    <el-form-item label="消息名">
+                        <el-input v-model="queryParameter.msgTitle" placeholder="请输入消息名"></el-input>
                     </el-form-item>
-          </el-col>
-         <el-col :span="4">
-                    <el-form-item label="组件名">
-                        <el-input v-model="queryParameter.name" placeholder="请输入组件名"></el-input>
+           </el-col>
+           <el-col :span="4">
+                    <el-form-item label="消息内容">
+                        <el-input v-model="queryParameter.msgContent" placeholder="请输入消息内容"></el-input>
                     </el-form-item>
-          </el-col>
+           </el-col>                                                                                                                                                        
 
         <el-col :span="4">
-                    <el-form-item label="层级">
-                        <el-select v-model="queryParameter.hierarchy" placeholder="请选择">
+                    <el-form-item label="事件来源">
+                        <el-select v-model="queryParameter.sourceId" multiple placeholder="请选择事件来源" @change="sourceIdChange">
                                 <el-option
-                                    v-for="item in Hierarchys"
+                                    v-for="item in msgSources"
                                     :key="item.value"
-                                    :label="item.label"
+                                    :label="item.name"
                                     :value="item.value">
                                 </el-option>
                         </el-select>       
                     </el-form-item>
          </el-col>
 
-                 <el-col :span="4">
-                    <el-form-item label="权限类型">
-                               <el-select v-model="queryParameter.permissionType" placeholder="请选择">
-                                    <el-option
-                                        v-for="item in types"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                        </el-option>
-                                    </el-select>
+        <el-col :span="4">
+                    <el-form-item label="事件主体">
+                        <el-select v-model="queryParameter.subjectId" multiple placeholder="请选择事件主体" @change="subjectIdChange">
+                                <el-option
+                                    v-for="item in sendSubjects"
+                                    :key="item.value"
+                                    :label="item.name"
+                                    :value="item.value">
+                                </el-option>
+                        </el-select>       
+                    </el-form-item>
+         </el-col>
+        <el-col :span="4">
+                    <el-form-item label="发送方式">
+                        <el-select v-model="queryParameter.sendWay" multiple placeholder="请选择发送方式" @change="sendWayChange">
+                                <el-option
+                                    v-for="item in sendWays"
+                                    :key="item.value"
+                                    :label="item.name"
+                                    :value="item.value">
+                                </el-option>
+                        </el-select>       
                     </el-form-item>
          </el-col>
 
-        <el-col :span="4">
-            <el-form-item>
-                    <el-switch
-                            v-model="queryParameter.isValid"
-                            :active-value=1
-                            :inactive-value=0
-                            active-text="可用"
-                            inactive-text="不可用">
-                    </el-switch>
-            </el-form-item>
-        </el-col>
+         <el-col :span="4">
+                    <el-form-item label="发送人">
+                        <el-input v-model="queryParameter.sendPeople" placeholder="请输入发送人"></el-input>
+                    </el-form-item>
+          </el-col>
             </el-card>
-        </el-row>
         <el-row style="text-algin:center">
             <el-card shadow="never">
             <el-col :span="6">
-                 <el-form-item label="创建时间">
+                 <el-form-item label="发送日期">
                         <el-date-picker
-                            v-model="queryParameter.createTime"
+                            v-model="queryParameter.sendTime"
                             type="daterange"
                             start-placeholder="开始日期"
                             end-placeholder="结束日期"
@@ -83,33 +86,42 @@
 import api from '@/api'
 export default {
     name:"tablehead",
-    props:['types','permissions','Hierarchys'],
+    props:['msgSources','sendSubjects','sendWays'],
     data(){
         return{
             queryParameter:{
-                permissionName:'',
-                name:"",
-                hierarchy:"",
-                isValid:1,
-                createTime:"",
-                permissionType:""
+            msgTitle:'',
+            sourceId:'',
+            subjectId:'',
+            sendTime:'',
+            msgContent:"",
+            sendWay:"",
+            sendPeople:"",
             } 
         }
-    },
-    mounted(){
-
     },
     methods:{
         onSubmit:function(){
             this.$emit('search',this.queryParameter)
         },
         onReset:function(){
-            this.queryParameter.permissionName=''
-            this.queryParameter.isValid=1
-            this.queryParameter.createTime=""
-            this.queryParameter.name=''
-            this.queryParameter.permissionType=''
-            this.queryParameter.hierarchy=''
+            this.msgTitle = '',
+            this.msgContent = '',
+            this.sourceId = '',
+            this.subjectId = '',
+            this.sendWay = '',
+            this.sendPeople = '',
+            this.sendTime = ''
+
+        },
+        sourceIdChange:function(data) {                          
+             this.queryParameter.userole = data.join(",")
+        },
+        subjectIdChange:function(data) {                          
+             this.queryParameter.userole = data.join(",")
+        },
+        sendWayChange:function(data) {                          
+             this.queryParameter.userole = data.join(",")
         }
     }
 }
@@ -117,9 +129,6 @@ export default {
 
 <style>
     .el-card{
-        border:0px solid #EBEEF5;;
-    }
-    .el-row{
-        position: relative;
-    }
+        border:0px solid #EBEE 
+        }
 </style>

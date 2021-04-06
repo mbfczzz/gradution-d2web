@@ -73,6 +73,7 @@
 
 <script>
 import api from '@/api'
+import { Message } from 'element-ui';
 export default {
     name:"edit",
     props:['types','permissions','Hierarchys'],
@@ -115,7 +116,7 @@ export default {
               icon:this.form.icon
         })
         if(res.code){
-        this.$message({
+        Message({
             showClose: true,
             message: res.message,
             center:true,

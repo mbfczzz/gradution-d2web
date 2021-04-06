@@ -24,6 +24,13 @@
   width: 100% !important;
 }
 
+.el-header{
+  padding: 0px 0px !important;
+}
+.el-main{
+  padding: 0px 0px !important;
+}
+
 // Chrome下表格头部错位修复
 .el-table th.gutter,
 .el-table colgroup.gutter {

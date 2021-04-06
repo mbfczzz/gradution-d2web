@@ -1,17 +1,14 @@
 <template>
     <el-form ref="userForm" :model="queryParameter" label-width="80px">
-
         <el-row style="text-algin:center">
+            <el-card shadow="never">
             <el-col :span="4">
-                <el-card shadow="never">
                     <el-form-item label="用户名">
                         <el-input v-model="queryParameter.username" placeholder="请输入用户名"></el-input>
                     </el-form-item>
-                </el-card>
             </el-col>
 
             <el-col :span="4">
-                <el-card shadow="never">
                     <el-form-item label="用户角色">
                        <el-select v-model="role" multiple placeholder="请选择" @change="change">
                             <el-option
@@ -22,11 +19,9 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
-                </el-card>
             </el-col>
 
             <el-col :span="4">
-                <el-card shadow="never">
                     <el-form-item>
                     <el-switch
                             v-model="queryParameter.isValid"
@@ -36,11 +31,9 @@
                             inactive-text="不可用">
                     </el-switch>
                     </el-form-item>
-                </el-card>
             </el-col>
 
             <el-col :span="8">
-                <el-card shadow="never">
                  <el-form-item label="创建时间">
                         <el-date-picker
                             v-model="queryParameter.createTime"
@@ -52,15 +45,15 @@
                             >
                         </el-date-picker>
                 </el-form-item>
-            </el-card>
         </el-col>
 
         <el-col :span="4">
-            <el-card shadow="never">
+                  <el-form-item>
                         <el-button type="primary" @click="onSubmit">查询</el-button>
                         <el-button @click="onReset">重置</el-button>
-            </el-card>
+                  </el-form-item>      
         </el-col>
+        </el-card>
         </el-row>
         </el-form>
 </template>
@@ -104,8 +97,5 @@ export default {
 <style>
     .el-card{
         border:0px solid #EBEEF5;;
-    }
-    .el-row{
-        position: relative;
     }
 </style>

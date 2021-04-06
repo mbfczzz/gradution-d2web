@@ -1,8 +1,10 @@
 <template>
-        <el-container>  
+        <el-container style="">  
              <el-header
+             :height="height"
              >
                      <table-head 
+                     ref="tableHead"
                      @search="search"
                      :types="types"
                      :permissions="permissions"
@@ -31,10 +33,18 @@ export default {
             tableHead
         },
         props:['data','types','permissions','Hierarchys'],
-        data(){
+          data(){
              return{
- 
+                height:""
              }   
+        },
+        mounted(){
+                let height = this.$refs.tableHead.$el.offsetHeight;
+                this.$watch(
+                function() {
+                        this.height = height.toString()
+                },
+                );
         },
         methods:{
                 resetPage:function(data){

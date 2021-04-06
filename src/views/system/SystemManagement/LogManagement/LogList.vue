@@ -7,7 +7,6 @@
 <script>
 import commonTable from "./LogList/commonTable"
 import api from "@/api"
-import log from '@/libs/util.log'
 export default {
     name:"LogList",
     components:{

@@ -1,13 +1,13 @@
 <template>
         <div>
-                <el-button class="d2-mr btn-text can-hover" type="text">
+        <el-button class="d2-mr btn-text can-hover" type="text">
                             <el-badge is-dot class="item">
                     <i class="el-icon-bell head-news-icon" @mouseover.self="dropShowBtn" style="font-size:19px" @mouseout.self="dropHideBtn"></i>
                            </el-badge>
-                </el-button>
+        </el-button>
          <div class="header-right-dropdown" @mouseover="dropdownBtn" @mouseout="dropShow = false">
                     <el-collapse-transition>
-                        <Dropdowns v-show="dropShow" />
+                        <Dropdowns v-show="dropShow" :id="message" />
                     </el-collapse-transition>
          </div>
         </div>
@@ -15,27 +15,20 @@
 
 <script>
 import Dropdowns from './DropDown/index'
+import { mapState } from 'vuex'
 export default {
     data(){
         return {
-            dropShow: false, // 是否现实通知栏
-        }
-    },
-    computed:{
-    getWsMsg (){
-        return this.$store.state.webSocketMsg
-    }
-    },
-    watch:{
-        getWsMsg:{
-            handler: function(newVal) {
-                console.log(newVal)
-                alert('接收到webSocket推送'+ newVal)
-            }
+            dropShow: true, // 是否现实通知栏
         }
     },
     components:{
         Dropdowns,
+    },
+    computed:{
+            ...mapState('d2admin/websocket',[
+                'message'
+            ]),
     },
     methods:{
         dropdownBtn(){
@@ -49,11 +42,10 @@ export default {
         },
            // 收起通知
         dropHideBtn(){
-            let This = this
-            
-            this.setTime = setTimeout(function(){
-                This.dropShow = false;
-            },1000)
+            // let This = this  
+            // this.setTime = setTimeout(function(){
+            //     This.dropShow = false;
+            // },1000)
         },
     }
 }
@@ -126,7 +118,7 @@ export default {
     position: absolute;
     right: 0;
     top: 60px;
-    z-index: 2;
+    z-index: 100;
     background: #ffffff;
     /* padding: 5px 0; */
     box-sizing: border-box;
@@ -228,4 +220,5 @@ export default {
 .theme-active{
     border: 5px solid #05DA89;
 }
+
 </style>

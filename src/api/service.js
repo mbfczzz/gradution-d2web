@@ -22,7 +22,6 @@ function createService () {
   // 响应拦截
   service.interceptors.response.use(
     response => {
-      console.log(1);
       // dataAxios 是 axios 返回数据中的 data
       const dataAxios = response.data
       // 这个状态码是和后端约定的
@@ -36,7 +35,6 @@ function createService () {
         // 有 code 代表这是一个后端接口 可以进行进一步的判断
         switch (code) {
           case 200:
-            console.log(dataAxios);
             // [ 示例 ] code === 0 代表没有错误
             return dataAxios
           case '400':
@@ -74,7 +72,6 @@ function createService () {
  */
 function createRequestFunction (service) {
   return function (config) {
-    console.log(config);
     let type = 'application/json'
     if(config.type!=undefined){
       type = config.type
@@ -85,7 +82,7 @@ function createRequestFunction (service) {
         Authorization:'Bearer '+token,
         'Content-Type': get(config, 'headers.Content-Type', type)
       },
-      timeout: 5000,
+      timeout: 10000,
       baseURL: process.env.VUE_APP_API,
       data:{}
     }

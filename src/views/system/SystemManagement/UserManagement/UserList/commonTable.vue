@@ -1,7 +1,7 @@
 <template>
         <el-container>
-             <el-header>
-                     <table-head @search="search" :options="options"></table-head>
+             <el-header :height="height">
+                     <table-head @search="search" ref="tableHead" :options="options"></table-head>
              </el-header>
              <el-main>
                      <table-main :tdata="data" @resetPage="resetPage" :options="options" @reload='reload'></table-main>
@@ -19,10 +19,18 @@ export default {
             tableHead
         },
         props:['data','options'],
-        data(){
+          data(){
              return{
- 
+                height:""
              }   
+        },
+        mounted(){
+                let height = this.$refs.tableHead.$el.offsetHeight;
+                this.$watch(
+                function() {
+                        this.height = height.toString()
+                },
+                );
         },
         methods:{
                 resetPage:function(data){

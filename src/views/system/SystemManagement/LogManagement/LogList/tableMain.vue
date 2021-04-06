@@ -3,6 +3,7 @@
      <el-table
       :data="tdata.list"
       max-height="600"
+      height="1000"
       stripe
       :default-sort = "{prop: 'operatorTime', order: 'descending'}"
       style="width: 100%">

@@ -1,7 +1,6 @@
 <template>
   <div>
      <el-card>
-     <el-button type="primary" @click="addUser">添加</el-button>
      <el-button type="danger" @click="deleteUser">批量删除</el-button>
      </el-card> 
    <el-table
@@ -130,17 +129,11 @@
     </el-table-column>
     </el-table>  
     <page-info :data="tdata" @resetPage="resetPage" style="margin-top:20px"></page-info>
-    <add ref="add" 
-    :types="types"
-    :permissions="permissions"
-    :Hierarchys="Hierarchys"
-    @reload='reload'
-    ></add> 
     <edit
     ref="edit" 
-    :types="types"
-    :permissions="permissions"
-    :Hierarchys="Hierarchys"
+    :msgSources="msgSources"
+    :sendSubjects="sendSubjects"
+    :sendWays="sendWays"
      @reload='reload'
      ></edit> 
     </div>
@@ -148,47 +141,48 @@
 
 <script>
 import PageInfo from '@/components/table/pageInfo'
-import add from './common/add'
 import edit from './common/edit'
 import api from '@/api'
+import { Message } from 'element-ui';
 export default {
-  components: { PageInfo,add,edit},
+  components: { PageInfo,edit},
     name:"tableMain",
-    props:['tdata','types','permissions','Hierarchys'],
+    props:['tdata','msgSources','sendSubjects','sendWays'],
     data(){
       return{
-        data : [],
+        mss:[],
+        ssb:[],
+        sws:[],
         id:[]
       }
     },
     watch:{
-			options:function(newData,oldData){
-        this.data = this.handlerData(newData)
-			}
+        msgSources: function(newVal,oldVal){
+        this.mss = newVal
+      },
+        sendSubjects: function(newVal,oldVal){
+        this.ssb = newVal
+      },
+        sendWays: function(newVal,oldVal){
+        this.sws = newVal
+      }  
 		},
     methods:{
-      /**
-       * 添加用户
-       */
-      addUser:function () {
-        this.$refs.add.DialogVisible = true
-        this.$refs.add.form.createTime = this.getFormatTime(new Date())
-      },
       /**
        * 批量删除
        */
       deleteUser:async function () {
        if(this.id.length==0){
-          this.$message({
+          Message({
             showClose: true,
             message: "未勾选删除用户!",
             center:true,
             type:"warning"
         });
        }
-       const res = await api.DELETE_USER(this.id)
+       const res = await api.DELETE_MSG(this.id)
         if(res.code ===200){
-        this.$message({
+          Message({
             showClose: true,
             message: res.message,
             center:true,
@@ -233,16 +227,47 @@ export default {
        */
       handleEdit:function(index,row){
         this.$refs.edit.DialogVisible = true
-        this.$refs.edit.title = "编辑权限"
-        this.$refs.edit.form.createTime = this.getFormatTime(new Date())
+        this.$refs.edit.form.title = "编辑消息"
         this.$refs.edit.form.id = row.id
-        this.$refs.edit.form.permissionUrl = row.permissionUrl
-        this.$refs.edit.form.Hierarchy = row.hierarchy
-        this.$refs.edit.form.parentId = row.parentId.toString()     
-        this.$refs.edit.form.name = row.name
-        this.$refs.edit.form.icon = row.icon
-        this.$refs.edit.form.permissionType = row.permissionType
-        this.$refs.edit.form.permissionName = row.permissionName
+        this.$refs.edit.form.sendTime = row.sendTime
+        this.$refs.edit.form.msgTitle = row.msgTitle
+        this.$refs.edit.form.msgContent = row.msgContent
+        this.sws.forEach(s=>{
+          if(row.sendWay === s.name){
+             this.$refs.edit.form.sendWay = s.value
+          }
+        });
+        this.$refs.edit.form.sendPeople = row.sendPeople
+        this.mss.forEach(s=>{
+          if(row.sourceId === s.name){
+             this.$refs.edit.form.sourceId = s.value
+          }
+        }); 
+        this.ssb.forEach(s=>{
+          if(row.subjectId === s.name){
+            this.$refs.edit.form.subjectId = s.value
+          }
+        });
+        this.$refs.edit.tmp.id = row.id,
+        this.$refs.edit.tmp.sendTime=row.sendTime,
+        this.$refs.edit.tmp.msgTitle=row.msgTitle,
+        this.$refs.edit.tmp.msgContent=row.msgContent,
+        this.sws.forEach(s=>{
+          if(row.sendWay === s.name){
+              this.$refs.edit.tmp.sendWay = s.value
+          }
+        });
+        this.$refs.edit.tmp.sendPeople=row.sendPeople,
+        this.mss.forEach(s=>{
+          if(row.sourceId === s.name){
+            this.$refs.edit.tmp.sourceId = s.value
+          }
+        }); 
+       this.ssb.forEach(s=>{
+          if(row.subjectId === s.name){
+            this.$refs.edit.tmp.subjectId = s.value
+          }
+        });
       },
       /**
        * 单个删除
@@ -250,9 +275,9 @@ export default {
       handleDelete: async function(index,row){
         let arr=[]
         arr.push(row.id)
-        const res = await api.DELETE_USER(arr)
+        const res = await api.DELETE_MSG(arr)
         if(res.code ===200){
-        this.$message({
+        Message({
             showClose: true,
             message: res.message,
             center:true,
@@ -261,31 +286,6 @@ export default {
         this.reload()
         }
       },
-      /**
-       * 处理原始数据 转换成key value
-       */
-      handlerData(data){
-      let tmp=[]
-      data.forEach(element => {
-      let obj = {
-      key:element.value,
-      label:element.name,
-        }              
-      tmp.push(obj)
-        });
-      return tmp
-      },
-      /**
-       * 
-       * 默认显示的角色
-       */
-      roleValue(arr){
-      let tmp =[]
-        arr.forEach(s=>{
-            tmp.push(s.value)
-        })
-        return tmp
-      }
       }
 }
 </script>

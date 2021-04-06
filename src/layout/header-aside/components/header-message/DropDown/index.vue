@@ -1,25 +1,24 @@
 <template>
-    <el-tabs class="dropdowns" v-model="activeName"  @tab-click="handleClick">
+    <el-tabs class="dropdowns" v-model="activeName"  @tab-click="handleClick"  stretch>
         <el-tab-pane label="通知" name="first" style="padding:0; " class="dropdowns-dropBox">
-          
             <div class="dropdowns-list-box">
-              <Drop type='Email' iconColor='#ffffff' iconBgColor='#3593FE' text='您有一封新邮件,注意查收' time='04-01 12:20' style="background: #AFFCDD" />
-              <Drop type='Friend' iconColor='#ffffff' iconBgColor='#87D068' text='您有新朋友通过了你的好友验证' time='04-01 12:20' />
-              <Drop type='Approval' iconColor='#ffffff' iconBgColor='#F06292' text='您提交的文件,已批复' time='04-01 12:20' />
-              <Drop type='Refuse' iconColor='#ffffff' iconBgColor='#FE5C57' text='您的请假申请被拒绝,请准时上班' time='04-01 12:20' />
-              <Drop type='Favorite' iconColor='#ffffff' iconBgColor='#FF9900' text='您有一篇文字被用户admin收藏,请注意查看' time='04-01 12:20' />
-              <Drop text='您有一封新邮件,注意查收' time='04-01 12:20' />
-              <Drop text='您有一封新邮件,注意查收' time='04-01 12:20' />
-              <Drop text='您有一封新邮件,注意查收' time='04-01 12:20' />
-              <Drop type='Favorite' iconColor='#ffffff' iconBgColor='#FF9900' text='您有一篇文字被用户admin收藏,请注意查看' time='04-01 12:20' />
-              <el-button class="dropdowns-more"  :loading="true" type="text" disabled>加载更多</el-button>
+              <Drop
+              v-for="(k,v) in message"
+              :key=v 
+              iconColor='#ffffff' 
+              iconBgColor='#3593FE' 
+              :title='k.msgTitle' 
+              :content='k.msgContent'
+              :time='k.sendTime' 
+              style="background: #AFFCDD" />
+              <!-- <Drop type='Email' iconColor='#ffffff' iconBgColor='#3593FE' text='您有一封新邮件,注意查收' time='04-01 12:20' style="background: #AFFCDD" /> -->
+              <!-- <el-button class="dropdowns-more"  :loading="true" type="text" disabled>加载更多</el-button> -->
             </div>
             <div class="dropdowns-foots">
-                  <!-- <d2-icon-svg class="dropdowns-foots-iconsClear" name="Horn"/> -->
-                  <!-- <Clear class="dropdowns-foots-iconsClear"  /> -->
+                  <d2-icon-svg class="dropdowns-foots-iconsClear" name="Horn"/>
                   清空通知
             </div>
-            <!-- <Empy type='Horn' text='你还没有新的通知' /> -->
+            <Empy type='Horn' text='你还没有新的通知' />
         </el-tab-pane>
         <el-tab-pane label="消息" name="second" style="padding:0"  class="dropdowns-dropBox">
             <div class="dropdowns-list-box">
@@ -28,25 +27,23 @@
             <div class="dropdowns-foots">
                 清空通知
             </div>
-            <!-- <Empy type='News' text='你还没有新的消息' /> -->
+            <Empy type='News' text='你还没有新的消息' />
         </el-tab-pane>
         <el-tab-pane label="代办" name="third" style="padding:0">
             <div class="dropdowns-list-box">
               <Matter type='info' text='小明给你发了一条消息' time='需要在下午五点前完成' />
-              <Matter type='primary' text='小明给你发了一条消息' time='需要在下午五点前完成' />
-              <Matter type='success' text='小明给你发了一条消息' time='需要在下午五点前完成' />
-              <Matter type='warning' text='小明给你发了一条消息' time='需要在下午五点前完成' />
-              <Matter type='danger' text='小明给你发了一条消息' time='需要在下午五点前完成' />
             </div>
             <div class="dropdowns-foots">
                 清空通知
             </div>
-            <!-- <Empy type='Flag' text='你还没有新的代办事项' /> -->
+            <Empy type='Flag' text='你还没有新的代办事项' />
         </el-tab-pane>
   </el-tabs>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import api from '@/api';
 // 通知 每一栏
 import Drop from './drop'
 // 消息 每一栏
@@ -56,11 +53,19 @@ import Matter from './matter'
 // 空
 import Empy from './empy'
 export default {
-    data() {
+   data() {
       return {
         activeName: 'first',
-        dropOff: false
+        dropOff: false,
+        message:[],
+        page:1,
+        limit:10,
+        uid:''
       };
+    },
+   props:['id'],
+   mounted(){
+      this.init()
     },
     components:{
         Drop,
@@ -68,24 +73,37 @@ export default {
         Empy,
         Matter
     },
+    //   watch:{
+		// 	info:function(newData,oldData){
+    //     this.uid = newData
+		// 	}
+		// },
+    computed:{
+            ...mapState('d2admin/user',[
+                'info'
+            ]),
+    },
     methods: {
       handleClick(tab, event) {
         // console.log(tab, event);
+      },
+      getMessageByMid:function(){
+
+      },
+      init: async function(){
+          const res = await api.GETMESSAGE_BY_USER({
+            page:this.page,
+            limit:this.limit,
+            id:this.info.user.id
+          })
+          console.log(res);
+          this.message = res.result.list
       }
     }
 }
 </script>
 
 <style>
-.el-tabs__nav-scroll{
-    display: flex;
-    justify-content: center;
-}
-.el-tabs__nav{
-    /* width: 320px!important; */
-    display: flex!important;
-    justify-content: center !important;
-}
 .el-tabs__header{
     margin-bottom: 0!important;
 }
@@ -168,4 +186,5 @@ export default {
 .disableds{
   pointer-events: none;
 }
+
 </style>

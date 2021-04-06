@@ -26,7 +26,6 @@ export default {
     watch:{
             data:function(newData,oldData){
                 this.parentData = newData
-                console.log(this.parentData);
             }
     },
     methods:{
