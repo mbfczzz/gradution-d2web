@@ -35,6 +35,15 @@ export function createRoute(allmenu){
       routeObj.component = layoutHeaderAside
       routeObj.children = []
       s.children.forEach(k=>{
+        if(k.children == null && k.type==="page"){
+          let tmp = {}
+          tmp.path = k.path,
+          tmp.name = k.name,
+          tmp.icon = k.icon
+          tmp.meta = {auth:true,title:k.title}
+          tmp.component = _import(k.component)
+          routeObj.children.push(tmp)
+        }
         if(k.children != [] && k.children != undefined){
           k.children.forEach(m=>{
             let tmp = {}

@@ -3,8 +3,11 @@
      <el-card>
      <el-button type="primary" @click="addUser">添加</el-button>
      <el-button type="danger" @click="deleteUser">批量删除</el-button>
+     <upload-csv :columns="columns" :data="tdata.list" :title="用户列表"></upload-csv>
+     <upload-excel :columns="columns" :data="tdata.list" :title="用户列表"></upload-excel>
      </el-card> 
    <el-table
+      ref="table"
       :data="tdata.list"
       max-height="600"
       height="1000"
@@ -120,14 +123,24 @@ import PageInfo from '@/components/table/pageInfo'
 import add from './common/add'
 import api from '@/api'
 import { Message } from 'element-ui';
+import uploadCsv from '@/components/uploadCsv/uploadCsv'
+import uploadExcel from '@/components/uploadExcel/uploadExcel'
 export default {
-  components: { PageInfo,add},
+  components: { PageInfo,add,uploadCsv,uploadExcel},
     name:"tableMain",
     props:['tdata','options'],
     data(){
       return{
         data : [],
-        id:[]
+        id:[],
+        columns:[
+          {label:"id",prop:"id"},
+          {label:"是否可用",prop:"isValid"},
+          {label:"是否绑定",prop:"isBind"},
+          {lablel:"创建时间",prop:"createTime"},
+          {label:"用户角色",prop:"userole"},
+          {label:"姓名",prop:"username"}
+          ]
       }
     },
     watch:{
@@ -265,7 +278,7 @@ export default {
         })
         return tmp
       }
-      }
+    }
 }
 </script>
 

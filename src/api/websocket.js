@@ -26,7 +26,9 @@ const WS = {
     },
 
     wsMessage:function(msg) {
+        console.log(msg);
         if(msg.data != "服务器连接成功！"){
+            console.log(msg.data);
             store.commit("d2admin/websocket/set",msg.data)
         }
     },

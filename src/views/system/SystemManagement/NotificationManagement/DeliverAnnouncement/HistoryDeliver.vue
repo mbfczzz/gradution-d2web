@@ -97,11 +97,9 @@ import { mapState } from 'vuex'
      },
      load () {
         this.loading = true
-        setTimeout(() => {
           this.count += 2
           this.getMessage()
           this.loading = false
-        }, 2000)
       }
     }
   }

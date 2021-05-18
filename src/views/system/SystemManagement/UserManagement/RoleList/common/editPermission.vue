@@ -4,6 +4,7 @@
     title="角色权限编辑"
     :visible.sync="drawer"
     close-on-press-escape
+    :show-close="false"
     :direction="direction"
     destroy-on-close
     :before-close="handleClose"
@@ -43,7 +44,7 @@ export default {
             this.handlePermission(this.$refs.tree.getCheckedKeys().join(","));
             done();
           })
-          .catch(_ => {});
+          .catch(_ => {this.drawer=false});
       },
      reload:function () {
         this.$emit("reload")
@@ -53,14 +54,13 @@ export default {
           id:this.id,
           rolePermission:permission
         })
-        if(res.code){
+        if(res.code===200){
         Message({
             showClose: true,
             message: res.message,
             center:true,
             type:"success"
         });
-        this.DialogVisible = false
         this.reload()
         }
       }

@@ -105,6 +105,20 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
           type:'application/x-www-form-urlencoded',
           data:Qs.stringify(data)
                 })
+      },
+      GETMESSAGE_BY_CURRENT(data){
+        return request({
+          url: process.env.VUE_APP_MSG+'/notify/getMessageByCurrent/'+data,
+          method: 'get'
+                })
+      },
+      UPDATE_USER_MESSAGE(data){
+        return request({
+          url: process.env.VUE_APP_MSG+'/notify/updateUserMessage',
+          method: 'put',
+          type:'application/x-www-form-urlencoded',
+          data:Qs.stringify(data)
+          })
       }                                                 
     })
     

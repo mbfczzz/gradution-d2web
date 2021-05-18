@@ -13,7 +13,10 @@
             <div class="item">{{content}}</div>
             <div class="time">
                <p>{{time}}</p>
-               <p><el-button type="text">未读</el-button></p> 
+               <p>
+                   <el-button v-show="!isRead" type="text" @click="isRead()">未读</el-button>
+                   <el-button v-show="isRead" type="text">已读</el-button>
+               </p> 
             </div>
         </div>
     </div>
@@ -41,6 +44,15 @@ export default {
             required: true
         },
         time:{
+            type: String,
+            required: true
+        },
+        isRead:{
+            type: String,
+            required: true
+        },
+        
+        id:{
             type: String,
             required: true
         },
@@ -77,6 +89,11 @@ export default {
             }
         }
     },
+    methods:{
+        isRead:function () {
+            this.$emit("isRead",this.id)
+        }
+    }
 }
 </script>
 
@@ -121,6 +138,7 @@ export default {
     overflow: hidden;
 }
 .drop-right div:nth-child(1){
+    margin-top:10px;
     font-size: 14px;
     font-weight: 400;
     line-height: 22px;
@@ -146,12 +164,13 @@ export default {
     font-size: 12px;
     color: #606266;
     max-height: 50px;
-    text-overflow: ellipsis;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    height: 30px;
 }
 .drop-right div:nth-child(3){
     font-size: 12px;
     color: #808695;
+    margin-bottom: 10px;
 }
 .time{
     display: flex;

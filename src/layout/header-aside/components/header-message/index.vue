@@ -7,7 +7,7 @@
         </el-button>
          <div class="header-right-dropdown" @mouseover="dropdownBtn" @mouseout="dropShow = false">
                     <el-collapse-transition>
-                        <Dropdowns v-show="dropShow" :id="message" />
+                        <Dropdowns v-show="dropShow" />
                     </el-collapse-transition>
          </div>
         </div>
@@ -15,7 +15,6 @@
 
 <script>
 import Dropdowns from './DropDown/index'
-import { mapState } from 'vuex'
 export default {
     data(){
         return {
@@ -24,11 +23,6 @@ export default {
     },
     components:{
         Dropdowns,
-    },
-    computed:{
-            ...mapState('d2admin/websocket',[
-                'message'
-            ]),
     },
     methods:{
         dropdownBtn(){

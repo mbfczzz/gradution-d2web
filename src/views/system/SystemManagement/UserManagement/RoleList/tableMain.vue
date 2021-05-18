@@ -95,7 +95,6 @@
 import PageInfo from '@/components/table/pageInfo'
 import add from './common/add'
 import api from '@/api'
-import log from '@/libs/util.log'
 import editPermission from './common/editPermission'
 export default {
   components: { PageInfo,editPermission,add},
@@ -140,17 +139,24 @@ export default {
         handlePermission:function (index,row) {
         let id =[]
         this.$refs.permission.drawer = true
+        console.log(row.permission);
         row.permission.map(x=>{
           id.push(x.id)
           if(x.children.length>0){
+             if(x.children===null){
+              id.push(x.id) 
+             }
+             else{
               x.children.map(x=>{
                 id.push(x.id)
-                 if(x.children.length>0){
+                 if(x.children!=null){
                    x.children.map(x=>{
                    id.push(x.id)
                   })
                 }
               })
+
+             }
           }
           return id
         })

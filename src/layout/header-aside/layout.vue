@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import util from '@/libs/util'
 import d2MenuSide from './components/menu-side'
 import d2MenuHeader from './components/menu-header'
 import d2Tabs from './components/tabs'
@@ -120,8 +121,7 @@ export default {
   },
   created(){
     let id = util.cookies.get("uuid");
-    this.i18nHandle(this.$i18n.locale)
-    // this.$ws.createWS(id);
+    this.$ws.createWS(id);
   },
   computed: {
     ...mapState('d2admin', {

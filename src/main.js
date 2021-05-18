@@ -1,7 +1,7 @@
 // Vue
 import Vue from 'vue'
+import pluginExport from '@d2-projects/vue-table-export'
 import i18n from './i18n'
-import Antd from 'ant-design-vue'
 // 核心插件
 import d2Admin from '@/plugin/d2admin'
 import WS from '@/api/websocket'
@@ -17,7 +17,7 @@ import App from './App'
 
 // 核心插件
 Vue.use(d2Admin)
-Vue.use(Antd)
+Vue.use(pluginExport)
 
 new Vue({
   router,

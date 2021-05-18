@@ -3,13 +3,15 @@
         <el-tab-pane label="通知" name="first" style="padding:0; " class="dropdowns-dropBox">
             <div class="dropdowns-list-box">
               <Drop
-              v-for="(k,v) in message"
+              v-for="(k,v) in messages"
               :key=v 
               iconColor='#ffffff' 
               iconBgColor='#3593FE' 
               :title='k.msgTitle' 
               :content='k.msgContent'
               :time='k.sendTime' 
+              :read='k.isRead'
+              :id='k.id'
               style="background: #AFFCDD" />
               <!-- <Drop type='Email' iconColor='#ffffff' iconBgColor='#3593FE' text='您有一封新邮件,注意查收' time='04-01 12:20' style="background: #AFFCDD" /> -->
               <!-- <el-button class="dropdowns-more"  :loading="true" type="text" disabled>加载更多</el-button> -->
@@ -57,13 +59,11 @@ export default {
       return {
         activeName: 'first',
         dropOff: false,
-        message:[],
+        messages:[],
         page:1,
         limit:10,
-        uid:''
       };
     },
-   props:['id'],
    mounted(){
       this.init()
     },
@@ -73,22 +73,25 @@ export default {
         Empy,
         Matter
     },
-    //   watch:{
-		// 	info:function(newData,oldData){
-    //     this.uid = newData
-		// 	}
-		// },
+    watch:{
+			message:function(newData){
+        this.getMessageByMid(JSON.parse(newData).id)
+			}
+		},
     computed:{
             ...mapState('d2admin/user',[
                 'info'
             ]),
-    },
+            ...mapState('d2admin/websocket',[
+                'message'])
+    },    
     methods: {
       handleClick(tab, event) {
         // console.log(tab, event);
       },
-      getMessageByMid:function(){
-
+      getMessageByMid:async function(id){
+        const res = await api.GETMESSAGE_BY_CURRENT(id)
+        this.messages.push(res.result)
       },
       init: async function(){
           const res = await api.GETMESSAGE_BY_USER({
@@ -97,7 +100,14 @@ export default {
             id:this.info.user.id
           })
           console.log(res);
-          this.message = res.result.list
+          this.messages = res.result.list
+      },
+      isRead:async function(id){
+         const res = await api.UPDATE_USER_MESSAGE({
+            id:this.info.user.id,
+            mid:id
+          })
+          alert(res)
       }
     }
 }
