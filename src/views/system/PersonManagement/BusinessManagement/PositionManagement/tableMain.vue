@@ -55,7 +55,7 @@
         :inactive-value=0
         active-text="是"
         inactive-text="否"
-        @change="handleValid(scope.$index, scope.row)"
+        @change="switchBoolByIsValid(scope.$index, scope.row)"
         v-model="scope.row.isValid">
      </el-switch>   
      </template>        
@@ -176,22 +176,20 @@ export default {
       date.getSeconds().toString()
       return strDate
       },      
-      handleValid:async function (index,row) {
-        const res = await api.UPDATE_POSITION({
-          id:row.id,
-          isValid:!row.isValid,
+    switchBoolByIsValid:async function(index,row){
+         const res =  await api.UPDATE_POSITION({
+            id:row.id,
+            isValid:row.isValid
           })
-        if(res.code===200){
+        if(res.code ===200){
         Message({
             showClose: true,
             message: res.message,
             center:true,
             type:"success"
-        });
-        this.DialogVisible = false
-        this.reload()
-        }
-      },
+        });  
+      }
+      },  
       handleDelete: async function(index,row){
         let arr=[]
         arr.push(row.id)

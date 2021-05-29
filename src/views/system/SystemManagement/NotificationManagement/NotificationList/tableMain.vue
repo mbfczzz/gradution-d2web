@@ -71,7 +71,7 @@
     </el-table-column>
         <el-table-column
         label="发送人"
-        width="300"
+        width="100"
         align=center>
     <template slot-scope="scope">
         <el-tag
@@ -96,7 +96,7 @@
     </el-table-column>
             <el-table-column
         label="事件主体"
-        width="100"
+        width="200"
         align=center>
     <template slot-scope="scope">
         <el-tag
@@ -206,18 +206,6 @@ export default {
           tmp.push(s.id)
         })
         this.id = tmp
-      },
-      /**
-       * 格式化默认显示时间 yyyy-MM-dd hh:mm:ss
-       */
-      getFormatTime: function (date){ 
-      let strDate = date.getFullYear().toString()+'-'+      
-      (date.getMonth() + 1).toString()+'-'+     
-      date.getDate().toString()+' '+     
-      date.getHours().toString()+':'+           
-      date.getMinutes().toString()+':'+         
-      date.getSeconds().toString()
-      return strDate
       },
       resetPage:function(data){
         this.$emit("resetPage",data)   

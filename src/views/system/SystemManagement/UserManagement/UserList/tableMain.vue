@@ -3,8 +3,8 @@
      <el-card>
      <el-button type="primary" @click="addUser">添加</el-button>
      <el-button type="danger" @click="deleteUser">批量删除</el-button>
-     <upload-csv :columns="columns" :data="tdata.list" :title="用户列表"></upload-csv>
-     <upload-excel :columns="columns" :data="tdata.list" :title="用户列表"></upload-excel>
+     <upload-csv :columns="columns" :data="tdata.list" ></upload-csv>
+     <upload-excel :columns="columns" :data="tdata.list"></upload-excel>
      </el-card> 
    <el-table
       ref="table"
@@ -66,7 +66,7 @@
         effect="dark"
         slot="reference"
         >
-        {{scope.row.userole.split(",")[0]}}
+        {{scope.row.userole.split(",")>0?scope.row.userole.split(",")[0]:scope.row.userole}}
         </el-tag>
      </el-popover>
     </template>  
@@ -78,6 +78,7 @@
      <el-switch
         :active-value=1
         :inactive-value=0
+        @change="switchBoolByIsValid(scope.$index, scope.row)"
         v-model="scope.row.isValid ">
       </el-switch>   
      </template>        
@@ -89,6 +90,7 @@
      <el-switch
         :active-value=1
         :inactive-value=0
+      @change="switchBoolByIsBind(scope.$index, scope.row)"        
         v-model="scope.row.isBind">
      </el-switch>   
      </template>        
@@ -149,9 +151,34 @@ export default {
 			}
 		},
     methods:{
-      /**
-       * 添加用户
-       */
+      switchBoolByIsValid:async function(index,row){
+         const res =  await api.UPDATE_USER_BYISVALID({
+            id:row.id,
+            isValid:row.isValid
+          })
+        if(res.code ===200){
+        Message({
+            showClose: true,
+            message: res.message,
+            center:true,
+            type:"success"
+        });  
+      }
+      },
+       switchBoolByIsBind:async function(index,row){
+         const res =  await api.UPDATE_USER_BYISVALID({
+            id:row.id,
+            isBind:row.isBind
+          })
+           if(res.code ===200){
+        Message({
+            showClose: true,
+            message: res.message,
+            center:true,
+            type:"success"
+        });  
+      }
+      },
       addUser:function () {
         this.$refs.add.DialogVisible = true
         this.$refs.add.title = "添加用户"

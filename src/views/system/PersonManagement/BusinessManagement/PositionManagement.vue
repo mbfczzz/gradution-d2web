@@ -26,7 +26,6 @@ export default {
     },
     mounted() {
         this.load()
-        this.getPositiontName()
     },
      methods:{
         show: async function(){
@@ -49,6 +48,7 @@ export default {
         },
         load:function () {
             this.show()   
+            this.getPositiontName()
         },
         resetPage:function(data){
             this.page = data.page

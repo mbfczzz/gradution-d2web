@@ -77,9 +77,9 @@ export default {
             flag:false,
             empData:[],
             loading:false,
-            DialogVisible:false,                 
+            DialogVisible:false,
+            title:"",                 
             form:{
-              title:"",
               id:"",
               empId:"",
               releasePeople:'',    

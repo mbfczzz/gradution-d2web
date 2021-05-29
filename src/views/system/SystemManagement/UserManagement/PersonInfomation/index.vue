@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <div v-if="user">
+    <div v-if="info.user">
       <el-row :gutter="20">
 
         <el-col :span="6" :xs="24">
-          <user-card :user="user" />
+          <user-card :user="info.user" />
         </el-col>
 
         <el-col :span="18" :xs="24">
@@ -17,7 +17,7 @@
                 <timeline />
               </el-tab-pane>
               <el-tab-pane label="Account" name="account">
-                <account :user="user" />
+                <account :user="info.user" />
               </el-tab-pane>
             </el-tabs>
           </el-card>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import UserCard from './components/UserCard'
 import Activity from './components/Activity'
 import Timeline from './components/TimeLine'
@@ -39,29 +39,16 @@ export default {
   components: { UserCard, Activity, Timeline, Account },
   data() {
     return {
-      user: {},
       activeTab: 'activity'
     }
   },
-  computed: {
-    ...mapGetters([
-      'name',
-      'avatar',
-      'roles'
-    ])
-  },
-  created() {
-    this.getUser()
-  },
+    computed:{
+            ...mapState('d2admin/user',[
+                'info'
+            ]),
+    },
   methods: {
-    getUser() {
-      this.user = {
-        name: this.name,
-        role: this.roles.join(' | '),
-        email: 'admin@test.com',
-        avatar: this.avatar
-      }
-    }
+
   }
 }
 </script>

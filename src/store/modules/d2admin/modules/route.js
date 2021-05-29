@@ -15,6 +15,7 @@ export default {
             let index = addIndex(res.result.head)
             localStorage.setItem("head",JSON.stringify(index))
             let arr = getPermission(res.result.head,res.result.side)
+            console.log(arr);
             localStorage.setItem("allmenu", JSON.stringify(arr))
             let routeTable = createRoute(arr)
             routeTable.push({path:'*',name:'404',component:_import('system/error/404')})

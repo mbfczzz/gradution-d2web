@@ -35,17 +35,16 @@ const router = new VueRouter({
  * 权限验证
  */
 router.beforeEach(async (to, from, next) => {
+  console.log(routes)
   console.log(to.path);
-  // 确认已经加载多标签页数据 https://github.com/d2-projects/d2-admin/issues/201
   await store.dispatch('d2admin/page/isLoaded')
-  // 确认已经加载组件尺寸设置 https://github.com/d2-projects/d2-admin/issues/198
   await store.dispatch('d2admin/size/isLoaded')
   // 进度条
   NProgress.start()
   // 关闭搜索面板
   store.commit('d2admin/search/set', false)
     const token = util.cookies.get('token')
-    if(to.path ==='/login'){
+    if(to.path ==='/login' || to.path ==='/register'){
       next()
     }
     else if (token && token != undefined) {
@@ -68,11 +67,6 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done()
     }
   })
-//   } else {
-//     // 不需要身份校验 直接通过
-//     next()
-//   }
-// })
 
 router.afterEach(to => {
   // 进度条

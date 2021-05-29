@@ -27,7 +27,6 @@ export default {
     },
     mounted() {
         this.load()
-        this.getDepartmentName()
     },
      methods:{
         show: async function(){
@@ -51,6 +50,7 @@ export default {
         },
         load:function () {
             this.show()   
+            this.getDepartmentName()
         },
         resetPage:function(data){
             this.page = data.page

@@ -50,6 +50,7 @@ export default {
             form:{
               id:"",
               username:"",
+              password:"",
               createTime:"",
               password:"",
               userole:[],

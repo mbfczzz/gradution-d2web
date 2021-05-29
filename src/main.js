@@ -1,6 +1,6 @@
 // Vue
 import Vue from 'vue'
-import pluginExport from '@d2-projects/vue-table-export'
+import vueTableExport from '@d2-projects/vue-table-export'
 import i18n from './i18n'
 // 核心插件
 import d2Admin from '@/plugin/d2admin'
@@ -11,35 +11,19 @@ import store from '@/store/index'
 
 // 菜单和路由设置
 import router from './router'
-// import { menuHeader, menuAside } from '@/menu'
-import { frameInRoutes } from '@/router/routes'
 import App from './App'
+
 
 // 核心插件
 Vue.use(d2Admin)
-Vue.use(pluginExport)
+Vue.use(vueTableExport)
 
 new Vue({
   router,
   store,
   i18n,
-  render: h => h(App),
-  created () {
-    // 处理路由 得到每一级的路由设置
-    let routes = [...frameInRoutes,...JSON.parse(window.localStorage.getItem("routeside"))!=null?JSON.parse(window.localStorage.getItem("routeside")):[]];
-    this.$store.commit('d2admin/page/init',routes)
-    // // 设置顶栏菜单
-    this.$store.commit('d2admin/menu/headerSet',
-    JSON.parse(window.localStorage.getItem("head"))!=null?JSON.parse(window.localStorage.getItem("head")):[]
-    )
-    // // 设置侧边栏菜单
-    // 初始化菜单搜索功能
-    this.$store.commit('d2admin/search/init',
-    JSON.parse(window.localStorage.getItem("side"))!=null?JSON.parse(window.localStorage.getItem("side")):[])
-  }, 
+  render: h => h(App),  
   mounted () {
-    // 展示系统信息
-    this.$store.commit('d2admin/releases/versionShow')
     // 用户登录后从数据库加载一系列的设置
     this.$store.dispatch('d2admin/account/load')
     // 获取并记录用户 UA
@@ -56,7 +40,7 @@ new Vue({
         }
         let menuAside = JSON.parse(window.localStorage.getItem("allmenu"))
         if (matched.length > 0) {
-          if(matched[0].path === "/login" ||matched[0].path==="") 
+          if(matched[0].path === "/login" || matched[0].path === "/register" || matched[0].path==="") 
           return
           const _side = menuAside.filter(menu => menu.path === matched[0].path)
           this.$store.commit('d2admin/menu/asideSet', _side.length > 0 ? _side[0].children : [])
@@ -64,7 +48,6 @@ new Vue({
       },
       immediate: true
     }
+    
   }
-
-
 }).$mount('#app')

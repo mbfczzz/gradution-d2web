@@ -229,16 +229,6 @@ export default {
         this.$refs.edit.tmp.refundWay = row.refundWay
         this.$refs.edit.tmp.moneyItem = Number.parseInt(row.moneyItem)        
       },
-      getFormatTime: function (){
-      let date = new Date()   
-      let strDate = date.getFullYear().toString()+'-'+      
-      (date.getMonth() + 1).toString()+'-'+     
-      date.getDate().toString()+' '+     
-      date.getHours().toString()+':'+           
-      date.getMinutes().toString()+':'+         
-      date.getSeconds().toString()
-      return strDate
-      },      
       /**
        * 单个删除
        */

@@ -95,10 +95,9 @@
      <el-switch
         :active-value=1
         :inactive-value=0
-        :disabled="scope.row.isValid"
         active-text="是"
         inactive-text="否"
-        @change="handleLeave(scope.$index, scope.row)"
+        @change="switchBoolByIsValid(scope.$index, scope.row)"  
         v-model="scope.row.isValid">
      </el-switch>   
      </template>        
@@ -182,6 +181,20 @@ export default {
         this.reload()
         }
       },
+     switchBoolByIsValid:async function(index,row){
+         const res =  await api.UPDATE_STANDARD({
+            id:row.id,
+            isValid:row.isValid
+          })
+        if(res.code ===200){
+        Message({
+            showClose: true,
+            message: res.message,
+            center:true,
+            type:"success"
+        });  
+      }
+      },           
       /**
        * 页面重载
        */

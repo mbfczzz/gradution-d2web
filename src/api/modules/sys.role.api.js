@@ -1,9 +1,5 @@
 import Qs from 'qs'
 export default ({ service, request, serviceForMock, requestForMock, mock, faker, tools }) => ({
-    /**
-       * 用户登录
-       * @param {FormData} data 
-       */
        USER_ROLE (data) {
         if(data!=""){
             data = "/"+data

@@ -3,18 +3,18 @@
 
         <el-row style="text-algin:center">
             <el-card shadow="never">
-            <el-col :span="4">
+            <el-col :span="5">
                     <el-form-item label="权限名">
                         <el-input v-model="queryParameter.permissionName" placeholder="请输入权限名"></el-input>
                     </el-form-item>
           </el-col>
-         <el-col :span="4">
+         <el-col :span="5">
                     <el-form-item label="组件名">
                         <el-input v-model="queryParameter.name" placeholder="请输入组件名"></el-input>
                     </el-form-item>
           </el-col>
 
-        <el-col :span="4">
+        <el-col :span="5">
                     <el-form-item label="层级">
                         <el-select v-model="queryParameter.hierarchy" placeholder="请选择">
                                 <el-option
@@ -27,7 +27,7 @@
                     </el-form-item>
          </el-col>
 
-                 <el-col :span="4">
+                 <el-col :span="5">
                     <el-form-item label="权限类型">
                                <el-select v-model="queryParameter.permissionType" placeholder="请选择">
                                     <el-option

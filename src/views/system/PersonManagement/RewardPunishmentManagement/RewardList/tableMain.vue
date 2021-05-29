@@ -221,33 +221,6 @@ export default {
         this.$refs.edit.form.rewardStandard = row.rewardStandard
         this.$refs.edit.form.rewardContent = row.rewardContent                                 
       },
-      getFormatTime: function (){
-      let date = new Date()   
-      let strDate = date.getFullYear().toString()+'-'+      
-      (date.getMonth() + 1).toString()+'-'+     
-      date.getDate().toString()+' '+     
-      date.getHours().toString()+':'+           
-      date.getMinutes().toString()+':'+         
-      date.getSeconds().toString()
-      return strDate
-      },      
-      handleLeave:async function (index,row) {
-        const res = await api.UPDATE_EMP({
-          id:row.id,
-          isLeave:this.isLeave,
-          leaveTime:this.getFormatTime()
-          })
-        if(res.code===200){
-        Message({
-            showClose: true,
-            message: res.message,
-            center:true,
-            type:"success"
-        });
-        this.DialogVisible = false
-        this.reload()
-        }
-      },
       /**
        * 单个删除
        */

@@ -25,7 +25,6 @@
             filterable
             remote
             no-data-text
-            @change="change"
             reserve-keyword
             placeholder="请输入关键词"
             :remote-method="remoteMethod"
@@ -77,8 +76,8 @@ export default {
             empData:[],
             loading:false,
             DialogVisible:false,                 
+            title:"",            
             form:{
-              title:"",
               id:"",
               empId:"",
               releasePeople:'',    

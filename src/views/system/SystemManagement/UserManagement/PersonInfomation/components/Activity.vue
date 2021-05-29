@@ -22,7 +22,7 @@
         </li>
         <li>
           <span class="link-black text-sm">
-            <svg-icon icon-class="like" />
+            <d2-icon-svg  style="width: 14px;height: 14px" name="like"/>
             Like
           </span>
         </li>
@@ -50,7 +50,7 @@
         </li>
         <li>
           <span class="link-black text-sm">
-            <svg-icon icon-class="like" />
+            <d2-icon-svg  style="width: 14px;height: 14px" name="like"/>
             Like
           </span>
         </li>
@@ -73,7 +73,7 @@
         <li><span class="link-black text-sm"><i class="el-icon-share" /> Share</span></li>
         <li>
           <span class="link-black text-sm">
-            <svg-icon icon-class="like" /> Like</span>
+              <d2-icon-svg  style="width: 14px;height: 14px" name="like"/>Like</span>
         </li>
       </ul>
     </div>

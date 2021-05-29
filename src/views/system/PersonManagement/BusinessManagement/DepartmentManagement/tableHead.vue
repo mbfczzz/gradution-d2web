@@ -64,7 +64,7 @@ export default {
             departmentName:'',
             departmentMark:"",    
             createTime:"",
-            isValid:'',
+            isValid:1,
             } 
         }
     },
@@ -77,7 +77,8 @@ export default {
             this.queryParameter.departmentName = '',
             this.queryParameter.departmentMark = '',
             this.queryParameter.isValid = '',
-            this.queryParameter.createTime = ''
+            this.queryParameter.createTime = '',
+            this.name=''
 
         },
         change:function(data) {

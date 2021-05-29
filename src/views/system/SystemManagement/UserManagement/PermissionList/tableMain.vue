@@ -105,7 +105,7 @@
         effect="plain"
         v-if="scope.row.icon"
         >
-        {{ scope.row.icon }}
+        <d2-icon :name="scope.row.icon"/>
         </el-tag>
     </template>  
     </el-table-column>
@@ -114,6 +114,7 @@
         align=center>
      <template slot-scope="scope">
      <el-switch
+        @change="switchBoolByIsValid(scope.$index, scope.row)"     
         :active-value=1
         :inactive-value=0
         v-model="scope.row.isValid ">
@@ -179,6 +180,20 @@ export default {
 			}
 		},
     methods:{
+     switchBoolByIsValid:async function(index,row){
+         const res =  await api.UPDATE_PERMISSION({
+            id:row.id,
+            isValid:row.isValid
+          })
+        if(res.code ===200){
+        Message({
+            showClose: true,
+            message: res.message,
+            center:true,
+            type:"success"
+        });  
+      }
+      },            
       /**
        * 添加用户
        */

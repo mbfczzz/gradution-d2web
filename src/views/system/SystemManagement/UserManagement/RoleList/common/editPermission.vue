@@ -3,21 +3,23 @@
     <el-drawer
     title="角色权限编辑"
     :visible.sync="drawer"
+    ref="drawer"
     close-on-press-escape
     :show-close="false"
+     @opened='open'
+    :destroyOnClose="true"
     :direction="direction"
-    destroy-on-close
     :before-close="handleClose"
     >
-    <el-tree
-    :data="options"
-    show-checkbox
-    default-expand-all
-    :default-checked-keys="data"
-    node-key="id"
-    ref="tree"
-    highlight-current>
-</el-tree>
+            <el-tree
+            :data="options"
+            show-checkbox
+            default-expand-all
+            node-key="id"
+            ref="tree"
+            :default-checked-keys="this.data"
+            highlight-current>
+          </el-tree>
     </el-drawer>   
 </div> 
 </template>
@@ -37,14 +39,26 @@ export default {
         data:[]
       };
     },
+    mounted(){
+
+    },
     methods: {
+      open:function(){
+        this.$nextTick(() => {
+          　　           this.$refs.tree.setCheckedKeys(this.data);
+          });
+      },
       handleClose(done) {
         MessageBox.confirm('确认分配权限？')
           .then(_ => {
-            this.handlePermission(this.$refs.tree.getCheckedKeys().join(","));
-            done();
+            this.handlePermission(this.$refs.tree.getCheckedKeys().join(","))
+            done()
+            ;
           })
-          .catch(_ => {this.drawer=false});
+          .catch(_ => {
+          this.drawer=false;
+        }
+          );
       },
      reload:function () {
         this.$emit("reload")

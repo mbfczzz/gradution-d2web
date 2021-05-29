@@ -22,7 +22,7 @@
                     </el-form-item>
         </el-col> 
         
-        <el-col :span="4">
+        <el-col :span="3">
                     <el-form-item>
                     <el-switch
                             v-model="queryParameter.isLeave"
@@ -32,11 +32,9 @@
                             inactive-text="否">
                     </el-switch>
                     </el-form-item>
-        </el-col>                                                                                  
-        </el-card>
-        <el-row style="text-algin:center">
-            <el-card shadow="never">
-        <el-col :span="4">
+        </el-col>      
+
+                <el-col :span="4">
                     <el-form-item label="地址">
                        <el-cascader
                             size="large"
@@ -45,7 +43,10 @@
                             @change="handleChange">
                         </el-cascader>
                     </el-form-item>
-         </el-col>     
+         </el-col>                                                                                 
+        </el-card>
+        <el-row style="text-algin:center">
+            <el-card shadow="never">
         <el-col :span="7">
                  <el-form-item label="入职日期">
                         <el-date-picker

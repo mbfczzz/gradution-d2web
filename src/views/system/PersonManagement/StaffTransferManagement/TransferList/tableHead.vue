@@ -1,7 +1,7 @@
 <template>
 <el-form ref="userForm" :model="queryParameter" label-width="100px">
     <el-card shadow="never">
-        <el-col :span="7">
+        <el-col :span="5">
                     <el-form-item label="源地址">
                             <el-cascader
                             size="large"
@@ -11,7 +11,7 @@
                         </el-cascader>
                     </el-form-item>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="5">
                     <el-form-item label="目的地址">
                             <el-cascader
                             size="large"
@@ -83,7 +83,6 @@ export default {
             empName:'',
             transferReason:"",
             statusName:'',
-            transferTime:""
             } 
         }
     },
@@ -94,9 +93,12 @@ export default {
         onReset:function(){
             this.queryParameter.sourceAddr = '',
             this.queryParameter.destineAddr = '',
-            this.queryParameter.tranferTime = '',
+            this.queryParameter.transferTime= '',
             this.queryParameter.empName = '',
             this.queryParameter.statusName = ''
+            this.queryParameter.transferReason = ''
+            this.name = ''
+            this.names = ''                                            
         },
         sourceHandleChange (data) {
           this.queryParameter.sourceAddr = data.join(",")

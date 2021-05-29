@@ -1,9 +1,5 @@
 import Qs from 'qs'
 export default ({ service, request, serviceForMock, requestForMock, mock, faker, tools }) => ({
-    /**
-       * 用户登录
-       * @param {FormData} data 
-       */
        EMP_LIST (data) {
         return request({
           url: process.env.VUE_APP_ADMIN+'/emp/getAllEmp',

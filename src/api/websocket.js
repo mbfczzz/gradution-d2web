@@ -22,13 +22,10 @@ const WS = {
             message:'连接成功'    
         };
         this.send(JSON.stringify(con))
-        console.log('== websocket open ==')
     },
 
     wsMessage:function(msg) {
-        console.log(msg);
         if(msg.data != "服务器连接成功！"){
-            console.log(msg.data);
             store.commit("d2admin/websocket/set",msg.data)
         }
     },

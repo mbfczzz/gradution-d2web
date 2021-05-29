@@ -25,6 +25,18 @@
                     </el-select>
                     </el-form-item>
            </el-col>
+           <el-col :span="4">
+                    <el-form-item label="工资状态">
+                          <el-select v-model="tmpStatusName" multiple placeholder="请选择" @change="(data)=>this.queryParameter.statusName = data.join(',')">
+                             <el-option
+                                     v-for="item in  statusNames"
+                                     :key="item.value"
+                                     :label="item.label"
+                                     :value="item.value">
+                                     </el-option>
+                    </el-select>
+                    </el-form-item>
+           </el-col>              
             <el-col :span="4">
                     <el-form-item label="员工名">
                         <el-input v-model="queryParameter.empName" placeholder="请输入支出人"></el-input>
@@ -39,19 +51,7 @@
                     <el-form-item label="工资描述">
                         <el-input v-model="queryParameter.moneyDescribe" placeholder="请输入支出描述"></el-input>
                     </el-form-item>
-           </el-col>           
-           <el-col :span="4">
-                    <el-form-item label="工资状态">
-                          <el-select v-model="tmpStatusName" multiple placeholder="请选择" @change="(data)=>this.queryParameter.statusName = data.join(',')">
-                             <el-option
-                                     v-for="item in  statusNames"
-                                     :key="item.value"
-                                     :label="item.label"
-                                     :value="item.value">
-                                     </el-option>
-                    </el-select>
-                    </el-form-item>
-           </el-col>          
+           </el-col>                  
         </el-card>
         <el-row style="text-algin:center">
             <el-card shadow="never">

@@ -116,7 +116,7 @@
      <el-switch
         :active-value=1
         :inactive-value=0
-        :disabled="scope.row.isLeave"
+        :disabled="scope.row.isLeave===0?false:true"
         active-text="是"
         inactive-text="否"
         @change="handleLeave(scope.$index, scope.row)"

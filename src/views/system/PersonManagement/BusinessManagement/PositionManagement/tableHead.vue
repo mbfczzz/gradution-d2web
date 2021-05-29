@@ -58,7 +58,7 @@ export default {
             queryParameter:{
             positionName:'', 
             createTime:"",
-            isValid:'',
+            isValid:1,
             } 
         }
     },
@@ -71,6 +71,7 @@ export default {
             this.queryParameter.positionName = '',
             this.queryParameter.isValid = '',
             this.queryParameter.createTime = ''
+            this.name = ''            
 
         },
         change:function(data) {

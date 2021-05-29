@@ -75,6 +75,7 @@
         align=center>
      <template slot-scope="scope">
      <el-switch
+        @change="switchBoolByIsValid(scope.$index, scope.row)"         
         :active-value=1
         :inactive-value=0
         v-model="scope.row.isValid ">
@@ -132,7 +133,21 @@ export default {
     methods:{
      resetPage:function(data){
         this.$emit("resetPage",data)   
-      },  
+      },
+    switchBoolByIsValid:async function(index,row){
+         const res =  await api.UPDATE_ACCOUNT({
+            id:row.id,
+            isValid:row.isValid
+          })
+        if(res.code ===200){
+        Message({
+            showClose: true,
+            message: res.message,
+            center:true,
+            type:"success"
+        });  
+      }
+      },         
     /**
        * 批量删除
        */        
@@ -190,33 +205,6 @@ export default {
         this.$refs.edit.tmp.spendMoney = row.spendMoney
         this.$refs.edit.tmp.accountName = row.accountName
         this.$refs.edit.tmp.accountDescribe = row.accountDescribe 
-      },
-      getFormatTime: function (){
-      let date = new Date()   
-      let strDate = date.getFullYear().toString()+'-'+      
-      (date.getMonth() + 1).toString()+'-'+     
-      date.getDate().toString()+' '+     
-      date.getHours().toString()+':'+           
-      date.getMinutes().toString()+':'+         
-      date.getSeconds().toString()
-      return strDate
-      },      
-      handleLeave:async function (index,row) {
-        const res = await api.UPDATE_EMP({
-          id:row.id,
-          isLeave:this.isLeave,
-          leaveTime:this.getFormatTime()
-          })
-        if(res.code===200){
-        Message({
-            showClose: true,
-            message: res.message,
-            center:true,
-            type:"success"
-        });
-        this.DialogVisible = false
-        this.reload()
-        }
       },
       /**
        * 单个删除

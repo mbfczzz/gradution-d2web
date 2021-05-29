@@ -113,7 +113,7 @@ export default {
             this.queryParameter.standardName = '',
             this.queryParameter.departmentName = ''
             this.tmpPositionName=""
-            this.tmpstandardName=''
+            this.tmpdepartmentName=''
             this.tmpstandardName=''
         }
     }

@@ -2,7 +2,6 @@ import axios from 'axios'
 import Adapter from 'axios-mock-adapter'
 import { get } from 'lodash'
 import util from '@/libs/util'
-import { errorLog, errorCreate, response } from './tools'
 
 /**
  * @description 创建请求实例
@@ -26,41 +25,8 @@ function createService () {
       const dataAxios = response.data
       // 这个状态码是和后端约定的
       const  code  = dataAxios.code
-      // 根据 code 进行判断
-      if (code === undefined) {
-        console.log(dataAxios)
-        // 如果没有 code 代表这不是项目后端开发的接口 比如可能是 D2Admin 请求最新版本
-        return dataAxios
-      } else {
-        // 有 code 代表这是一个后端接口 可以进行进一步的判断
-        switch (code) {
-          case 200:
-            // [ 示例 ] code === 0 代表没有错误
-            return dataAxios
-          case '400':
-            errorCreate(`[ code: 400 ] ${dataAxios.message}: ${response.config.url}`)
-            break
-            case '401':
-            errorCreate(`[ code: 401 ] ${dataAxios.message}: ${response.config.url}`)
-            break
-            case '403':
-            errorCreate(`[ code: 403 ] ${dataAxios.message}: ${response.config.url}`)
-            break
-            case '203':
-            errorCreate(`[ code: 203 ] ${dataAxios.message}: ${response.config.url}`)
-            break
-            case '408':
-            errorCreate(`[ code: 408 ] ${dataAxios.message}: ${response.config.url}`)
-            break
-            case '500':
-            errorCreate(`[ code: 500 ] ${dataAxios.message}: ${response.config.url}`)
-            break     
-          default:
-            // 不是正确的 code
-            errorCreate(`[ code: 404 ] ${dataAxios.message}: ${response.config.url}`)
-            break
-        }
-      }
+      console.log(code)
+      return dataAxios
     },
   )
   return service

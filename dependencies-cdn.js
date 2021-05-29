@@ -18,5 +18,10 @@ module.exports = [
   { name: 'lowdb', library: 'low', js: 'https://cdn.jsdelivr.net/npm/lowdb@1.0.0/dist/low.min.js', css: '' },
   { name: 'lowdb/adapters/LocalStorage', library: 'LocalStorage', js: 'https://cdn.jsdelivr.net/npm/lowdb@1.0.0/dist/LocalStorage.min.js', css: '' },
   { name: 'screenfull', library: 'screenfull', js: 'https://cdn.jsdelivr.net/npm/screenfull@5.0.2/dist/screenfull.min.js', css: '' },
-  { name: 'sortablejs', library: 'Sortable', js: 'https://cdn.jsdelivr.net/npm/sortablejs@1.10.1/Sortable.min.js', css: '' }
+  { name: 'sortablejs', library: 'Sortable', js: 'https://cdn.jsdelivr.net/npm/sortablejs@1.10.1/Sortable.min.js', css: '' },
+  { name: 'echarts',library:'echarts',js:'https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js'},
+  { name: 'el-tree-transfer',library:'treeTransfer',js:'https://cdn.jsdelivr.net/npm/el-tree-transfer@2.4.6/dist/treeTransfer.min.js'},
+  { name: 'element-china-area-data',library:'{CodeToText,regionDataPlus}',js:'https://cdn.jsdelivr.net/npm/element-china-area-data@5.0.2/dist/app.min.js'},
+  { name: 'vue-count-to',library:'CountTo',js:'https://cdn.jsdelivr.net/npm/vue-count-to@1.0.13/dist/vue-count-to.min.js'}, 
+  { name: '@d2-projects/vue-table-export',library:'VueTableExport',js:'https://cdn.jsdelivr.net/npm/@d2-projects/vue-table-export@1.1.3/dist/vue-table-export.min.js'}, 
 ]

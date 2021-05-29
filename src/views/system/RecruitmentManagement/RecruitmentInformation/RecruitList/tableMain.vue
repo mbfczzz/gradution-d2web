@@ -1,7 +1,7 @@
 <template>
   <div>
      <el-card>
-     <el-button type="primary" @click="handleadd">添加奖惩</el-button>
+     <el-button type="primary" @click="handleadd">添加招聘</el-button>
      <el-button type="danger" @click="deleteUser">批量删除</el-button>
      </el-card> 
    <el-table
@@ -152,7 +152,6 @@ import edit from './common/edit'
 import add from './common/add'
 import api from '@/api'
 import { Message } from 'element-ui';
-import log from '@/libs/util.log'
 export default {
   components: { PageInfo,edit,add},
     name:"tableMain",

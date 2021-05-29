@@ -59,13 +59,12 @@
 </template>
 
 <script>
-import api from '@/api'
 export default {
     name:"tablehead",
     props:['options'],
     data(){
         return{
-            role:[],
+            role:'',
             queryParameter:{
                 username:'',
                 isValid:1,
@@ -82,6 +81,7 @@ export default {
             this.$emit('search',this.queryParameter)
         },
         onReset:function(){
+            this.role =''
             this.queryParameter.username=''
             this.queryParameter.isValid=1
             this.queryParameter.createTime=""

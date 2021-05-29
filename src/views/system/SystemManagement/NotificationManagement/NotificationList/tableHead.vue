@@ -14,7 +14,7 @@
 
         <el-col :span="4">
                     <el-form-item label="事件来源">
-                        <el-select v-model="queryParameter.sourceId" multiple placeholder="请选择事件来源" @change="sourceIdChange">
+                        <el-select v-model="tmpSourceId" multiple placeholder="请选择事件来源" @change="sourceIdChange">
                                 <el-option
                                     v-for="item in msgSources"
                                     :key="item.value"
@@ -27,7 +27,7 @@
 
         <el-col :span="4">
                     <el-form-item label="事件主体">
-                        <el-select v-model="queryParameter.subjectId" multiple placeholder="请选择事件主体" @change="subjectIdChange">
+                        <el-select v-model="tmpSubject" multiple placeholder="请选择事件主体" @change="subjectIdChange">
                                 <el-option
                                     v-for="item in sendSubjects"
                                     :key="item.value"
@@ -39,7 +39,7 @@
          </el-col>
         <el-col :span="4">
                     <el-form-item label="发送方式">
-                        <el-select v-model="queryParameter.sendWay" multiple placeholder="请选择发送方式" @change="sendWayChange">
+                        <el-select v-model="tmpSendWay" multiple placeholder="请选择发送方式" @change="sendWayChange">
                                 <el-option
                                     v-for="item in sendWays"
                                     :key="item.value"
@@ -83,12 +83,14 @@
 </template>
 
 <script>
-import api from '@/api'
 export default {
     name:"tablehead",
     props:['msgSources','sendSubjects','sendWays'],
     data(){
         return{
+            tmpSubject:'',
+            tmpSourceId:'',
+            tmpSendWay:'',
             queryParameter:{
             msgTitle:'',
             sourceId:'',
@@ -105,23 +107,26 @@ export default {
             this.$emit('search',this.queryParameter)
         },
         onReset:function(){
-            this.msgTitle = '',
-            this.msgContent = '',
-            this.sourceId = '',
-            this.subjectId = '',
-            this.sendWay = '',
-            this.sendPeople = '',
-            this.sendTime = ''
+            this.queryParameter.msgTitle = '',
+            this.queryParameter.msgContent = '',
+            this.queryParameter.sourceId = '',
+            this.queryParameter.subjectId = '',
+            this.queryParameter.sendWay = '',
+            this.queryParameter.sendPeople = '',
+            this.queryParameter.sendTime = ''
+            this.tmpSubject=''
+            this.tmpSourceId=''
+            this.tmpSendWay=''
 
         },
         sourceIdChange:function(data) {                          
-             this.queryParameter.userole = data.join(",")
+             this.queryParameter.sourceId = data.join(",")
         },
         subjectIdChange:function(data) {                          
-             this.queryParameter.userole = data.join(",")
+             this.queryParameter.subjectId = data.join(",")
         },
         sendWayChange:function(data) {                          
-             this.queryParameter.userole = data.join(",")
+             this.queryParameter.sendWay = data.join(",")
         }
     }
 }

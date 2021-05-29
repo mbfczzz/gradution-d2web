@@ -69,7 +69,7 @@
         :inactive-value=0
         active-text="是"
         inactive-text="否"
-        @change="handleValid(scope.$index, scope.row)"
+        @change="switchBoolByIsValid(scope.$index, scope.row)"        
         v-model="scope.row.isValid">
      </el-switch>   
      </template>        
@@ -149,6 +149,20 @@ export default {
         this.reload()
         }
       },
+     switchBoolByIsValid:async function(index,row){
+         const res =  await api.UPDATE_DEPARTMENT({
+            id:row.id,
+            isValid:row.isValid
+          })
+        if(res.code ===200){
+        Message({
+            showClose: true,
+            message: res.message,
+            center:true,
+            type:"success"
+        });  
+      }
+      },         
       /**
        * 页面重载
        */
@@ -181,32 +195,6 @@ export default {
         this.$refs.edit.tmp.id = row.id
         this.$refs.edit.tmp.departmentName = row.departmentName
         this.$refs.edit.tmp.departmentMark = row.departmentMark                          
-      },
-      getFormatTime: function (){
-      let date = new Date()   
-      let strDate = date.getFullYear().toString()+'-'+      
-      (date.getMonth() + 1).toString()+'-'+     
-      date.getDate().toString()+' '+     
-      date.getHours().toString()+':'+           
-      date.getMinutes().toString()+':'+         
-      date.getSeconds().toString()
-      return strDate
-      },      
-      handleValid:async function (index,row) {
-        const res = await api.UPDATE_DEPARTMENT({
-          id:row.id,
-          isValid:!row.isValid,
-          })
-        if(res.code===200){
-        Message({
-            showClose: true,
-            message: res.message,
-            center:true,
-            type:"success"
-        });
-        this.DialogVisible = false
-        this.reload()
-        }
       },
       handleDelete: async function(index,row){
         let arr=[]

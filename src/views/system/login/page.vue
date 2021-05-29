@@ -1,5 +1,6 @@
 <template>
-   <div class="homepage-hero-module">
+   <div class="homepage-hero-module">     
+<p class="logo">企业人事管理系统</p>    
 <el-card class="box-card login">
   <div slot="header" class="head">
     <span>Login</span>
@@ -22,6 +23,7 @@
     <div class="video-container">
         <video-background 
         style="max-height: 100%; height: 100vh"
+        poster="http://mbfczzzz.top/ocean-1867285.jpg"
         src="http://mbfczzzz.top/vedio.mp4"
         >
  </video-background>
@@ -48,35 +50,6 @@ export default {
       },
       }
     },
-      mounted: function() {
-      window.onresize = () => {
-        const windowWidth = document.body.clientWidth
-        const windowHeight = document.body.clientHeight
-        const windowAspectRatio = windowHeight / windowWidth
-        let videoWidth
-        let videoHeight
-        if (windowAspectRatio < 0.5625) {
-          videoWidth = windowWidth
-          videoHeight = videoWidth * 0.5625
-          this.fixStyle = {
-            height: windowWidth * 0.5625 + 'px',
-            width: windowWidth + 'px',
-            'margin-bottom': (windowHeight - videoHeight) / 2 + 'px',
-            'margin-left': 'initial'
-          }
-        } else {
-          videoHeight = windowHeight
-          videoWidth = videoHeight / 0.5625
-          this.fixStyle = {
-            height: windowHeight + 'px',
-            width: windowHeight / 0.5625 + 'px',
-            'margin-left': (windowWidth - videoWidth) / 2 + 'px',
-            'margin-bottom': 'initial'
-          }
-        }
-      }
-      window.onresize()
-},
 methods: {
     ...mapActions('d2admin/account', [
       'login'
@@ -100,6 +73,18 @@ methods: {
 </script>
 
 <style scoped>
+  .logo{
+        letter-spacing:13px;
+        position: absolute;
+        z-index: 2;
+        width: 350px;
+        top: 25%;
+        left: 40%;
+        color:#409EFF;
+        text-shadow: 0 0 20px #409EFF;
+        font: 30px/1.5 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;
+        text-align: center;
+  }
   .head{
     text-align: center;
     letter-spacing:20px;
@@ -111,7 +96,7 @@ methods: {
     position: absolute;
     width: 350px;
     height: 250px;
-    top: 40%;
+    top: 37%;
     left: 40%;
     z-index: 2;
   }

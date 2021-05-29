@@ -49,7 +49,7 @@
         </el-card>
         <el-row style="text-algin:center">
             <el-card shadow="never"> 
-        <el-col :span="9">
+        <el-col :span="7">
                  <el-form-item label="创建日期">
                         <el-date-picker
                             v-model="queryParameter.createTime"
@@ -62,7 +62,7 @@
                         </el-date-picker>
                 </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="7">
                  <el-form-item label="更新日期">
                         <el-date-picker
                             v-model="queryParameter.updateTime"
@@ -113,10 +113,12 @@ export default {
             this.queryParameter.standardName = '',
             this.queryParameter.standardType = '',
             this.queryParameter.createTime = '',
-            this.queryParameter.isValid = '',
+            this.queryParameter.isValid = 1,
             this.queryParameter.rewardContent = '',
             this.queryParameter.rewardDescribe = ''
             this.queryParameter.updateTime=''
+            this.tmpStandardType =''
+            this.tmpRewardDescribe =''
 
         },
       rewardDescribeHandleChange (data) {

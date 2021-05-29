@@ -1,9 +1,5 @@
 import Qs from 'qs'
 export default ({ service, request, serviceForMock, requestForMock, mock, faker, tools }) => ({
-  /**
-     * 用户登录
-     * @param {FormData} data 
-     */
      USER_SEARCH (data) {
       return request({
         url:process.env.VUE_APP_ADMIN+'/user/getAllUser',
@@ -33,6 +29,13 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
         url:process.env.VUE_APP_ADMIN+'/user/deleteUser/'+data,
         method: 'DELETE',
       })
-    }
+    },
+    UPDATE_USER_BYISVALID(data){
+      return request({
+         url:process.env.VUE_APP_ADMIN+'/user/updateUserByIsValid',
+         method: 'PUT',
+         data
+       })
+     },
   })
   

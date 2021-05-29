@@ -1,7 +1,7 @@
 <template>
     <el-form ref="userForm" :model="queryParameter" label-width="80px">
             <el-card shadow="never">
-            <el-col :span="4">
+            <el-col :span="5">
                     <el-form-item label="支出项目">
                            <el-select v-model="tmpspendItem" multiple placeholder="请选择" @change="(data)=>this.queryParameter.itemName = data.join(',')">
                              <el-option
@@ -13,7 +13,7 @@
                     </el-select>
                     </el-form-item>
            </el-col>
-            <el-col :span="4">
+            <el-col :span="5">
                     <el-form-item label="支出方式">
                            <el-select v-model="tmpspendWayName" multiple placeholder="请选择" @change="(data)=>this.queryParameter.wayName = data.join(',')">
                              <el-option
@@ -25,17 +25,7 @@
                     </el-select>
                     </el-form-item>
            </el-col>
-            <el-col :span="4">
-                    <el-form-item label="支出人">
-                        <el-input v-model="queryParameter.spendPeople" placeholder="请输入支出人"></el-input>
-                    </el-form-item>
-           </el-col>
-         <el-col :span="4">
-                    <el-form-item label="支出描述">
-                        <el-input v-model="queryParameter.spendMark" placeholder="请输入支出描述"></el-input>
-                    </el-form-item>
-           </el-col>
-           <el-col :span="4">
+        <el-col :span="5">
                     <el-form-item label="支出状态">
                           <el-select v-model="tmpstatusName" multiple placeholder="请选择" @change="(data)=>this.queryParameter.statusName = data.join(',')">
                              <el-option
@@ -46,7 +36,17 @@
                                      </el-option>
                     </el-select>
                     </el-form-item>
-           </el-col>          
+           </el-col>       
+            <el-col :span="4">
+                    <el-form-item label="支出人">
+                        <el-input v-model="queryParameter.spendPeople" placeholder="请输入支出人"></el-input>
+                    </el-form-item>
+           </el-col>
+         <el-col :span="4">
+                    <el-form-item label="支出描述">
+                        <el-input v-model="queryParameter.spendMark" placeholder="请输入支出描述"></el-input>
+                    </el-form-item>
+           </el-col>   
         </el-card>
         <el-row style="text-algin:center">
             <el-card shadow="never">
